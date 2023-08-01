@@ -1,0 +1,231 @@
+p {
+  color: red;
+}
+.input-select {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.mat-option {
+  line-height: 1.6em;
+}
+
+@media screen and (max-width: 767px) {
+.input-select select {
+  width: 20%;
+  height: 7vh;
+  border: 1px solid #ccc;
+  padding: 1vh;
+  font-size: 2.5vh;
+  appearance: none;
+  background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' fill='%23000' viewBox='0 0 24 24'><path d='M7 10l5 5 5-5z'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right center;
+  background-position: right 1px center;
+  background-size: 4vw;
+  margin-top: -6vw;
+  margin-right: 2vw;
+  margin-left: 1vw;
+  }
+
+  .fecha {
+    font-weight: 10vh;
+    margin-top: 0.5vh;
+  }
+
+  .DataContainer{
+    margin-top: 3vh;
+  }
+
+  .DatosContainer{
+    margin-left: 5vh;
+  }
+
+  .input-select{
+    margin-top: 11vh;
+  }
+  .center-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 33vh;
+    margin-right: 4.5vh;
+  }
+  .temp {
+    font-size: 11vh;
+    margin-top: 6vh;
+  }
+
+  .nombre {
+    margin-bottom: -0.25vh;
+    font-weight: bold;
+    font-weight: 3vh;
+  }
+
+  .decorations {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+
+  .decoration-sun {
+    position: absolute;
+    top: 45vh;
+    right: 5vh;
+    width: 19vh;
+    z-index: -1;
+  }
+
+  .decoration-cloud {
+    position: absolute;
+    top:65vh;
+    left: 2vh;
+    width: 10vh;
+    z-index: -1;
+  }
+
+  mat-form-field {
+    width: 80%;
+    margin-left: 5px;
+  }
+
+  .horizontal-list {
+    list-style-type: none;
+    display: flex;
+  }
+  
+  .value-period {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 2vh;
+  }
+  
+  .value {
+    font-size: 3vh;
+    font-weight: bold;
+    margin-bottom: 2vh;
+  }
+  
+  .periodo {
+    font-size: 2.5vh;
+  }
+  
+}
+
+@media screen and (min-width: 768px) {
+  .input-select select {
+    width: 5%;
+    height: 7vh;
+    border: 1px solid #ccc;
+    padding: 1vh;
+    font-size: 2.5vh;
+    appearance: none;
+    background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' fill='%23000' viewBox='0 0 24 24'><path d='M7 10l5 5 5-5z'/></svg>");
+    background-size: 4vh;
+    background-repeat: no-repeat;
+    background-position: right 5px center;
+    margin-top: -3vh;
+    margin-right: 2vh;
+    margin-left: 2vh;
+  }
+
+  .fecha {
+    font-weight: 10vh;
+  }
+
+  .DataContainer{
+    margin-top: 2vh;
+  }
+
+  .DatosContainer{
+    margin-left: 65vh;
+  }
+
+  .input-select{
+    margin-top: 10vh;
+  }
+  .center-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 35vh;
+  }
+  .temp {
+    font-size: 13vh;
+    margin-top: 8vh;
+  }
+  
+  .nombre {
+    font-weight: bold;
+    margin-bottom: 1vh;
+    font-weight: 5vh;
+  }
+
+  .decorations {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+  
+  .decoration-sun {
+    position: absolute;
+    top: 40vh;
+    left: 112vh;
+    width: 15%;
+    z-index: -1;
+  }
+  
+  .decoration-cloud {
+    position: absolute;
+    top:60vh;
+    left: 68vh;
+    width: 10%;
+    z-index: -1;
+  }
+
+  mat-form-field {
+    width: 35%;
+    margin-left: 1vh;
+  }
+
+  .horizontal-list {
+    list-style-type: none;
+    display: flex;
+  }
+  
+  .value-period {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 2vh;
+  }
+  
+  .value {
+    font-size: 3vh;
+    font-weight: bold;
+    margin-bottom: 2vh;
+  }
+  
+  .periodo {
+    font-size: 2.5vh;
+  }
+
+}
+
+.material-icons {
+  color: #4587EC;
+  font-size: 24px;
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}

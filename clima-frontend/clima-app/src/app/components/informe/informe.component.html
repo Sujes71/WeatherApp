@@ -1,0 +1,40 @@
+<div class="decorations">
+  <img src="../../../assets/images/sun.png" alt="sun" class="decoration-sun">
+  <img src="../../../assets/images/nube.png" alt="nube" class="decoration-cloud">
+</div>
+<div class="form-container">
+  <div class="input-select">
+     <mat-form-field>
+      <input type="text" 
+        #inputNombre placeholder="Buscar municipio ..." 
+        matInput
+        [formControl]="municipioControl"
+        [matAutocomplete]="auto">
+    <i class="material-icons">search</i>
+      <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onMunicipioSelected($event)">
+        <mat-option *ngFor="let municipio of filteredMunicipios | async" [value]="municipio">
+          {{ municipio }}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+     <select (change)="cambiarUnidadTemperatura($event)">
+      <option [value]="'G_CEL'" [selected]="unidadTemperaturaSeleccionada === 'G_CEL'">ºC</option>
+      <option [value]="'G_FAH'" [selected]="unidadTemperaturaSeleccionada === 'G_FAH'">ºF</option>
+    </select>
+  </div>
+  <div class="DataContainer" *ngIf="informeJSON">
+    <div class="DatosContainer">
+      <h1 class="nombre">{{ informeJSON.nombre }}</h1>
+      <h2 class="fecha">{{ fechaMunicipio }}</h2>
+      <h1 class="temp">{{ tempMedia }} </h1>
+    </div>
+    <div class="center-container">
+      <ul class="horizontal-list">
+        <li class="value-period" *ngFor="let prob of informeJSON.probPrecipitacion">
+          <div class="value">{{ prob.value }}%</div>
+          <div class="periodo">{{ prob.periodo }}</div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
