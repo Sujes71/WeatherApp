@@ -69,7 +69,8 @@
               "browserTarget": "clima-app:build:production"
             },
             "development": {
-              "browserTarget": "clima-app:build:development"
+              "browserTarget": "clima-app:build:development",
+              "proxyConfig": "proxy.conf.json"
             }
           },
           "defaultConfiguration": "development"
@@ -97,7 +98,10 @@
               "@angular/material/prebuilt-themes/deeppurple-amber.css",
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [],
+            "include": [
+              "src/app/tests/**/*.spec.ts"
+            ]
           }
         }
       }
