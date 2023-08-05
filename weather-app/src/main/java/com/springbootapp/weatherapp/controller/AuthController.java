@@ -8,22 +8,22 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class AuthController {
+public class AuthController{
 
     @Autowired
     JwtTokenUtil jwtTokenUtil;
-    @GetMapping("/token/{username}")
-    public ResponseEntity<String> getToken(@PathVariable String username) {
-        String token = this.jwtTokenUtil.generateToken(username);
+    @GetMapping("/auth/token/{code}")
+    public ResponseEntity<String> getToken(@PathVariable String code) {
+        String token = this.jwtTokenUtil.generateToken(code);
 
-        if (username != null) {
+        if (code != null) {
             return ResponseEntity.ok(token);
         } else {
             return ResponseEntity.notFound().build();
         }
     }
 
-    @GetMapping("/code/random")
+    @GetMapping("/auth/code/random")
     public ResponseEntity<String> getRandomCode() {
         String code = this.jwtTokenUtil.generateRandomCode();
 

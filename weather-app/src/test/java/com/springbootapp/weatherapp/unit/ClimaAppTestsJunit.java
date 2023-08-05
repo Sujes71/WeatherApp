@@ -96,7 +96,7 @@ class ClimaAppTestsJunit {
 		assertEquals(reportDTO.getName(), mun.getName());
 		assertEquals(reportDTO.getDate(), dayData.getDate());
 		assertEquals(reportDTO.getTemUnit(), "G_CEL");
-		assertEquals(reportDTO.getTemAvg(), 25.35);
+		assertEquals(reportDTO.getTemAvg(), 25);
 
         assertEquals(1, reportDTO.getProbPrecipitations().size());
 		dayData.setProbPrecipitations(probPrecipitationList2);

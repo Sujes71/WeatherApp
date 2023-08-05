@@ -6,7 +6,7 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>3.1.2</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<relativePath/>
 	</parent>
 	<groupId>com.springbootapp</groupId>
 	<artifactId>weather-app</artifactId>
@@ -116,6 +116,40 @@
 			<scope>test</scope>
 		</dependency>
 
+<!-- <dependency>
+    <groupId>javax.validation</groupId>
+    <artifactId>validation-api</artifactId>
+    <version>2.0.1.Final</version>
+</dependency>
+
+<dependency>
+    <groupId>javax.annotation</groupId>
+    <artifactId>javax.annotation-api</artifactId>
+    <version>1.3.2</version>
+</dependency>
+
+<dependency>
+    <groupId>org.threeten</groupId>
+    <artifactId>threetenbp</artifactId>
+    <version>1.6.8</version>
+</dependency>
+
+<dependency>
+    <groupId>org.springframework</groupId>
+    <artifactId>spring-context</artifactId>
+</dependency>
+
+<dependency>
+    <groupId>io.swagger.core.v3</groupId>
+    <artifactId>swagger-annotations</artifactId>
+    <version>2.2.15</version>
+</dependency>
+
+<dependency>
+    <groupId>io.swagger.core.v3</groupId>
+    <artifactId>swagger-models</artifactId>
+    <version>2.2.15</version>
+</dependency> -->
 	</dependencies>
 
 	<build>
@@ -143,6 +177,34 @@
 					</execution>
 				</executions>
 			</plugin>
+<!--			<plugin>
+				<groupId>io.swagger.codegen.v3</groupId>
+				<artifactId>swagger-codegen-maven-plugin</artifactId>
+				<version>3.0.46</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+						<configuration>
+							<inputSpec>${project.basedir}/src/main/resources/weather-api.yaml</inputSpec>
+							<language>spring</language>
+							<output>${project.build.directory}/generated-sources/</output>
+							<generateSupportingFiles>false</generateSupportingFiles>
+							<apiPackage>com.springbootapp.weatherapp.api</apiPackage>
+							<modelPackage>com.springbootapp.weatherapp.models</modelPackage>
+							<configOptions>
+								<interfaceOnly>true</interfaceOnly>
+								<serializableModel>true</serializableModel>
+								<useBeanValidation>true</useBeanValidation>
+								<useOptional>true</useOptional>
+								<performBeanValidation>true</performBeanValidation>
+								<useJacksonAnnotations>false</useJacksonAnnotations>
+							</configOptions>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin> -->
 		</plugins>
 	</build>
 

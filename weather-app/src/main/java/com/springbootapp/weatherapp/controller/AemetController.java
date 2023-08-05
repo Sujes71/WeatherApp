@@ -19,7 +19,7 @@ public class AemetController {
     @Autowired
     AemetService aemetService;
 
-    @GetMapping("/muns")
+    @GetMapping("/aemet/mun/all")
     public ResponseEntity<List<Municipality>> getMuns() {
         List<Municipality> muns = this.aemetService.getMuns();
 
@@ -30,8 +30,8 @@ public class AemetController {
         }
     }
 
-    @GetMapping("/mun/{id}")
-    public ResponseEntity<Municipality> getMunicipioPorId(@PathVariable String id) {
+    @GetMapping("/aemet/mun/{id}")
+    public ResponseEntity<Municipality> getMunById(@PathVariable String id) {
         Municipality mun = this.aemetService.getMunById(id);
 
         if (mun != null) {
@@ -41,7 +41,7 @@ public class AemetController {
         }
     }
 
-    @GetMapping("/mun/prediction/tomorrow/{id}")
+    @GetMapping("/aemet/mun/prediction/tomorrow/{id}")
     public ResponseEntity<ReportDTO> getPredictMunTomorrow(@PathVariable String id) {
         ReportDTO reportDTO = this.aemetService.getPredictMunTomorrow(id);
 
@@ -52,8 +52,8 @@ public class AemetController {
         }
     }
 
-    @GetMapping("/mun/conversion/{avg}/{unit}")
-    public ResponseEntity<TemperatureDTO> getConversion(@PathVariable float avg, @PathVariable String unit) {
+    @GetMapping("/aemet/mun/conversion/{avg}/{unit}")
+    public ResponseEntity<TemperatureDTO> getConversion(@PathVariable Float avg, @PathVariable String unit) {
         TemperatureDTO temperatureDTO = this.aemetService.getConversion(avg, unit);
 
         if (temperatureDTO != null) {

@@ -13,11 +13,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(jwtInterceptor)
-                .addPathPatterns("/**")
-                .excludePathPatterns("/token/**")
-                .excludePathPatterns("/api/token/**")
-                .excludePathPatterns("/code/**")
-                .excludePathPatterns("/api/code/**")
+                .addPathPatterns("aemet/**")
+                .addPathPatterns("api/aemet/**")
                 .order(1);
     }
 }

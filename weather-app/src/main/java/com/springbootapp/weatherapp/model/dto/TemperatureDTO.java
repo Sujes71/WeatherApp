@@ -5,6 +5,6 @@ import lombok.Data;
 @Data
 public class TemperatureDTO {
 
-    private float avg;
+    private Float avg;
     private String unit;
 }

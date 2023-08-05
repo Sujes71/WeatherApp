@@ -96,14 +96,14 @@ public class AemetServiceImpl implements AemetService {
     }
 
     @Override
-    public TemperatureDTO getConversion(float avg, String unit) {
+    public TemperatureDTO getConversion(Float avg, String unit) {
         TemperatureDTO temperatureDTO = new TemperatureDTO();
         if(unit.equals("G_CEL")){
             temperatureDTO.setUnit("G_CEL");
-            temperatureDTO.setAvg(Math.round((avg - 32) * 5 / 9));
+            temperatureDTO.setAvg((float) Math.round((avg - 32) * 5 / 9));
         } else {
             temperatureDTO.setUnit("G_FAH");
-            temperatureDTO.setAvg(Math.round((avg * 9 / 5) + 32));
+            temperatureDTO.setAvg((float) Math.round((avg * 9 / 5) + 32));
         }
         return temperatureDTO;
     }

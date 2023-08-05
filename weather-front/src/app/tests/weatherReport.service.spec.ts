@@ -41,7 +41,7 @@ describe('WeatherReportService', () => {
       expect(report).toEqual(dummyReport);
     });
 
-    const req = httpMock.expectOne(`api/mun/prediction/tomorrow/${munId}`);
+    const req = httpMock.expectOne(`api/aemet/mun/prediction/tomorrow/${munId}`);
     expect(req.request.method).toBe('GET');
     req.flush(dummyReport);
   });
@@ -60,7 +60,7 @@ describe('WeatherReportService', () => {
       expect(report).toEqual(dummyReport);
     });
 
-    const req = httpMock.expectOne(`api/muns`);
+    const req = httpMock.expectOne(`api/aemet/mun/all`);
     expect(req.request.method).toBe('GET');
     req.flush(dummyReport);
   });
@@ -73,7 +73,7 @@ describe('WeatherReportService', () => {
       expect(typeof report).toBe('string');
     });
   
-    const req = httpMock.expectOne(`api/token/${dummyReport}`);
+    const req = httpMock.expectOne(`api/auth/token/${dummyReport}`);
     expect(req.request.method).toBe('GET');
 
     req.flush({ token: 'dummyTokenValue' });

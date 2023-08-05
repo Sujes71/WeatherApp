@@ -1,0 +1,207 @@
+openapi: 3.0.0
+
+info:
+  title: Weather API
+  version: 1.0.0
+  description: API to obtain climate data for a municipality
+
+tags:
+  - name: Weather
+    description: Endpoints related to weather data
+  - name: Authentication
+    description: Endpoints related to authentication
+
+components:
+  schemas:
+    Municipality:
+      type: object
+      properties:
+        nombre:
+          type: string
+        id:
+          type: string
+    DayData:
+      type: object
+      properties:
+        fecha:
+          type: string
+          format: date
+        temperatura:
+          $ref: '#/components/schemas/Temperature'
+        probPrecipitacion:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProbPrecipitation'
+    Prediction:
+      type: object
+      properties:
+        dia:
+          type: array
+          items:
+            $ref: '#/components/schemas/DayData'
+    Temperature:
+      type: object
+      properties:
+        maxima:
+          type: number
+          format: double
+        minima:
+          type: number
+          format: double
+    WData:
+      type: object
+      properties:
+        datos:
+          type: string
+    WReport:
+      type: object
+      properties:
+        prediccion:
+          $ref: '#/components/schemas/Prediction'
+    ProbPrecipitation:
+      type: object
+      properties:
+        value:
+          type: integer
+        periodo:
+          type: string
+    TemperatureDTO:
+      type: object
+      properties:
+        avg:
+          type: number
+          format: float
+        unit:
+          type: string
+    ReportDTO:
+      type: object
+      properties:
+        name:
+          type: string
+        date:
+          type: string
+          format: date
+        temAvg:
+          type: number
+          format: double
+        temUnit:
+          type: string
+        probPrecipitations:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProbPrecipitation'
+
+paths:
+  /aemet/mun/all:
+    get:
+      summary: Get a list of municipalities
+      tags:
+        - "Weather"
+      operationId: getMuns
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Municipality'
+  /aemet/mun/{id}:
+    get:
+      summary: Get a municipality by ID
+      tags:
+        - "Weather"
+      operationId: getMunById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Municipality'
+  /aemet/mun/prediction/tomorrow/{id}:
+    get:
+      summary: Get tomorrow's weather prediction for a municipality
+      tags:
+        - "Weather"
+      operationId: getPredictMunTomorrow
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReportDTO'
+  /aemet/mun/conversion/{avg}/{unit}:
+    get:
+      summary: Convert temperature between Fahrenheit and Celsius
+      tags:
+        - "Weather"
+      operationId: getConversion
+      parameters:
+        - name: avg
+          in: path
+          description: Average temperature value
+          required: true
+          schema:
+            type: number
+            format: float
+        - name: unit
+          in: path
+          description: Temperature unit (G_CEL for Celsius, G_FAH for Fahrenheit)
+          required: true
+          schema:
+            type: string
+            enum: [ G_CEL, G_FAH ]
+      responses:
+        '200':
+          description: Successful conversion
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TemperatureDTO'
+  /auth/token/{code}:
+    get:
+      summary: Generate JWT token for authentication
+      tags:
+        - "Authentication"
+      operationId: getToken
+      parameters:
+        - name: code
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful token generation
+          content:
+            application/json:
+              schema:
+                type: string
+  /auth/code/random:
+    get:
+      summary: Generate a random code
+      tags:
+        - "Authentication"
+      operationId: getRandomCode
+      responses:
+        '200':
+          description: Successful code generation
+          content:
+            application/json:
+              schema:
+                type: string

@@ -10,5 +10,5 @@ public interface AemetService {
     List<Municipality> getMuns();
     Municipality getMunById(String id);
     ReportDTO getPredictMunTomorrow(String id);
-    TemperatureDTO getConversion(float avg, String unit);
+    TemperatureDTO getConversion(Float avg, String unit);
 }
