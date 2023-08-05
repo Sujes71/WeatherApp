@@ -17,7 +17,7 @@ public interface ReportMapper {
 
     @Mapping(source = "date", target = "date")
     @Mapping(target = "probPrecipitations", expression = "java(dayData.getProbPrecipitations().size() > 3 ? dayData.getProbPrecipitations().subList(3, dayData.getProbPrecipitations().size()) : dayData.getProbPrecipitations())")
-    @Mapping(target = "temAvg", expression = "java((dayData.getTemperature().getMax() + dayData.getTemperature().getMin()) / 2)")
+    @Mapping(target = "temAvg", expression = "java((double) Math.round((dayData.getTemperature().getMax() + dayData.getTemperature().getMin()) / 2.0))")
     ReportDTO dayToReportDTO(DayData dayData);
 
 }

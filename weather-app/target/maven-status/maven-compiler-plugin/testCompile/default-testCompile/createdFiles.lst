@@ -1,0 +1,3 @@
+com\springbootapp\weatherapp\mock\ClimaAppTestsMock.class
+com\springbootapp\weatherapp\unit\ClimaAppTestsJunit.class
+com\springbootapp\weatherapp\cucumber\ClimaAppTestsCucumber.class
