@@ -28,4 +28,4 @@ jobs:
       - name: Run tests
         run: |
             cd weather-front
-            npm test --source-map=false --browsers=ChromeHeadless --watch=false
+            npm test
