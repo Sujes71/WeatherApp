@@ -21,7 +21,7 @@ jobs:
 
       - name: Build Backend
         run: |
-          cd weather-back
+          cd ../weather-back
           docker build -t sujes7/weather-back:${{ github.sha }} .
 
       - name: Log in to Docker registry
