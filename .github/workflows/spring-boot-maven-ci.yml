@@ -33,7 +33,7 @@ jobs:
     - name: Run Tests
       run: |
         cd weather-app
-        mvn test
+        mvn verify
 
     - name: Test Report
       uses: actions/upload-artifact@v2

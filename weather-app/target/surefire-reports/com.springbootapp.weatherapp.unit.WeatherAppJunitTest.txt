@@ -1,4 +1,10 @@
 -------------------------------------------------------------------------------
 Test set: com.springbootapp.weatherapp.unit.WeatherAppJunitTest
 -------------------------------------------------------------------------------
-Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 12.859 s - in com.springbootapp.weatherapp.unit.WeatherAppJunitTest
+Tests run: 3, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 2.895 s <<< FAILURE! - in com.springbootapp.weatherapp.unit.WeatherAppJunitTest
+testGetMuns  Time elapsed: 0.274 s  <<< ERROR!
+org.springframework.web.client.ResourceAccessException: I/O error on GET request for "http://localhost:8080/aemet/mun/all": Connection refused: connect
+	at com.springbootapp.weatherapp.unit.WeatherAppJunitTest.testGetMuns(WeatherAppJunitTest.java:49)
+Caused by: java.net.ConnectException: Connection refused: connect
+	at com.springbootapp.weatherapp.unit.WeatherAppJunitTest.testGetMuns(WeatherAppJunitTest.java:49)
+
