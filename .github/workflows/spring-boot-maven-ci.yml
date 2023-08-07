@@ -22,8 +22,8 @@ jobs:
     
     - name: Build with Maven
       run: |
-      cd weather-app
-      mvn clean verify
+          cd weather-app
+          mvn clean verify
  
     - name: Test Report
       uses: actions/upload-artifact@v3
