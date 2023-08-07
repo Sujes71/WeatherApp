@@ -16,7 +16,7 @@ FROM nginx:1.25.1
 
 COPY nginx.conf /etc/nginx/nginx.conf
 
-COPY --from=builder ./app/dist/weather-app /usr/share/nginx/html
+COPY --from=builder /app/dist/weather-front /usr/share/nginx/html
 
 EXPOSE 80
 
