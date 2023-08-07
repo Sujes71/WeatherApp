@@ -20,7 +20,11 @@ jobs:
           java-version: '17'
 
       - name: Build with Maven
-        run: mvn clean install -DskipTests
+        run: |
+            cd weather-app
+            mvn clean install -DskipTests
 
       - name: Run tests
-        run: mvn test
+        run: |
+            cd weather-app
+            mvn test
