@@ -29,6 +29,6 @@ jobs:
         run: |
             cd weather-front
             export CHROME_BIN=/usr/bin/chromium-browser
-            CI=true npm run test-headless
+            CI=true npm test-headless
         env:
           CI: true
