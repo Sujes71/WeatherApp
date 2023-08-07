@@ -1,4 +1,4 @@
-name: Build and Test Java Spring Boot Application 
+name: Java Spring Boot Application CI
  
 on:
   push:
@@ -24,10 +24,11 @@ jobs:
       run: |
           cd weather-app
           mvn clean verify
+          mvn jacoco:report
  
     - name: Test Report
       uses: actions/upload-artifact@v3
       if: success() || failure()
       with:
-          name: SpringBoot Report
-          path: /target/site/serenity/
+          name: JaCoCo Report
+          path: weather-app/htmlReport/

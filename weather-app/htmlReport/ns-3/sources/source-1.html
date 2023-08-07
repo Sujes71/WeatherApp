@@ -1,0 +1,168 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
+  <title>Coverage Report > AemetController</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.springbootapp.weatherapp.controller</a>
+</div>
+
+<h1>Coverage Summary for Class: AemetController (com.springbootapp.weatherapp.controller)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">AemetController</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    20%
+  </span>
+  <span class="absValue">
+    (1/5)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    5,9%
+  </span>
+  <span class="absValue">
+    (1/17)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.springbootapp.weatherapp.controller;
+&nbsp;
+&nbsp;import com.springbootapp.weatherapp.model.Municipality;
+&nbsp;import com.springbootapp.weatherapp.model.dto.ReportDTO;
+&nbsp;import com.springbootapp.weatherapp.model.dto.TemperatureDTO;
+&nbsp;import com.springbootapp.weatherapp.service.AemetService;
+&nbsp;import org.springframework.beans.factory.annotation.Autowired;
+&nbsp;import org.springframework.http.ResponseEntity;
+&nbsp;import org.springframework.web.bind.annotation.GetMapping;
+&nbsp;import org.springframework.web.bind.annotation.PathVariable;
+&nbsp;import org.springframework.web.bind.annotation.RestController;
+&nbsp;
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;@RestController
+<b class="fc">&nbsp;public class AemetController {</b>
+&nbsp;
+&nbsp;    @Autowired
+&nbsp;    AemetService aemetService;
+&nbsp;
+&nbsp;    @GetMapping(&quot;/aemet/mun/all&quot;)
+&nbsp;    public ResponseEntity&lt;List&lt;Municipality&gt;&gt; getMuns() {
+<b class="nc">&nbsp;        List&lt;Municipality&gt; muns = this.aemetService.getMuns();</b>
+&nbsp;
+<b class="nc">&nbsp;        if (!muns.isEmpty()) {</b>
+<b class="nc">&nbsp;            return ResponseEntity.ok(muns);</b>
+&nbsp;        } else {
+<b class="nc">&nbsp;            return ResponseEntity.notFound().build();</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;    
+&nbsp;    @GetMapping(&quot;/aemet/mun/{id}&quot;)
+&nbsp;    public ResponseEntity&lt;Municipality&gt; getMunById(@PathVariable String id) {
+<b class="nc">&nbsp;        Municipality mun = this.aemetService.getMunById(id);</b>
+&nbsp;
+<b class="nc">&nbsp;        if (mun != null) {</b>
+<b class="nc">&nbsp;            return ResponseEntity.ok(mun);</b>
+&nbsp;        } else {
+<b class="nc">&nbsp;            return ResponseEntity.notFound().build();</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    @GetMapping(&quot;/aemet/mun/prediction/tomorrow/{id}&quot;)
+&nbsp;    public ResponseEntity&lt;ReportDTO&gt; getPredictMunTomorrow(@PathVariable String id) {
+<b class="nc">&nbsp;        ReportDTO reportDTO = this.aemetService.getPredictMunTomorrow(id);</b>
+&nbsp;
+<b class="nc">&nbsp;        if (reportDTO != null) {</b>
+<b class="nc">&nbsp;            return ResponseEntity.ok(reportDTO);</b>
+&nbsp;        } else {
+<b class="nc">&nbsp;            return ResponseEntity.notFound().build();</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    @GetMapping(&quot;/aemet/mun/conversion/{avg}/{unit}&quot;)
+&nbsp;    public ResponseEntity&lt;TemperatureDTO&gt; getConversion(@PathVariable Float avg, @PathVariable String unit) {
+<b class="nc">&nbsp;        TemperatureDTO temperatureDTO = this.aemetService.getConversion(avg, unit);</b>
+&nbsp;
+<b class="nc">&nbsp;        if (temperatureDTO != null) {</b>
+<b class="nc">&nbsp;            return ResponseEntity.ok(temperatureDTO);</b>
+&nbsp;        } else {
+<b class="nc">&nbsp;            return ResponseEntity.notFound().build();</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-08-07 20:01</div>
+</div>
+</body>
+</html>
