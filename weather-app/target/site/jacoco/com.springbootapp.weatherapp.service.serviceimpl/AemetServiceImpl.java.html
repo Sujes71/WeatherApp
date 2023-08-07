@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AemetServiceImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">weather-app</a> &gt; <a href="index.source.html" class="el_package">com.springbootapp.weatherapp.service.serviceimpl</a> &gt; <span class="el_source">AemetServiceImpl.java</span></div><h1>AemetServiceImpl.java</h1><pre class="source lang-java linenums">package com.springbootapp.weatherapp.service.serviceimpl;
+
+import com.hazelcast.core.HazelcastInstance;
+import com.hazelcast.map.IMap;
+import com.springbootapp.weatherapp.model.DayData;
+import com.springbootapp.weatherapp.model.Municipality;
+import com.springbootapp.weatherapp.model.WData;
+import com.springbootapp.weatherapp.model.WReport;
+import com.springbootapp.weatherapp.model.dto.ReportDTO;
+import com.springbootapp.weatherapp.model.dto.TemperatureDTO;
+import com.springbootapp.weatherapp.model.mapper.ReportMapper;
+import com.springbootapp.weatherapp.service.AemetService;
+import com.springbootapp.weatherapp.service.component.HazelCastUtil;
+import jakarta.annotation.PostConstruct;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
+@Service
+<span class="fc" id="L29">public class AemetServiceImpl implements AemetService {</span>
+
+    @Autowired
+    private RestTemplate restTemplate;
+    @Autowired
+    private HazelCastUtil hazelCastUtil;
+    @Value(&quot;${aemet.api-key}&quot;)
+    private String apiKey;
+
+    @Value(&quot;${aemet.url-prediction}&quot;)
+    private String prediction;
+
+    @Value(&quot;${aemet.url-master}&quot;)
+    private String master;
+
+    @Override
+    public List&lt;Municipality&gt; getMuns() {
+<span class="nc" id="L46">        String url = String.format(&quot;%ss%s&quot;, master, apiKey);</span>
+<span class="nc bnc" id="L47" title="All 2 branches missed.">        if (hazelCastUtil.getMunCache().containsKey(url)) {</span>
+<span class="nc" id="L48">            return hazelCastUtil.getMunCache().get(url);</span>
+        }
+<span class="nc" id="L50">        ResponseEntity&lt;Municipality[]&gt; response = restTemplate.exchange(url, HttpMethod.GET, null, Municipality[].class);</span>
+<span class="nc" id="L51">        List&lt;Municipality&gt; muns = Arrays.asList(response.getBody());</span>
+<span class="nc" id="L52">        hazelCastUtil.getMunCache().put(url, muns);</span>
+
+<span class="nc" id="L54">        return muns;</span>
+    }
+
+    @Override
+    public Municipality getMunById(String id) {
+<span class="fc" id="L59">        String url = String.format(&quot;%s/%s%s&quot;, master, id, apiKey);</span>
+<span class="fc" id="L60">        ResponseEntity&lt;Municipality[]&gt; response = restTemplate.exchange(url, HttpMethod.GET, null, Municipality[].class);</span>
+<span class="fc" id="L61">        Municipality mun = response.getBody()[0];</span>
+
+<span class="fc" id="L63">        return mun;</span>
+    }
+
+    @Override
+    public ReportDTO getPredictMunTomorrow(String id) {
+<span class="nc" id="L68">        String url = String.format(&quot;%s%s%s&quot;, prediction, id.substring(2), apiKey);</span>
+<span class="nc" id="L69">        WData wData = null;</span>
+<span class="nc" id="L70">        DayData dayData = null;</span>
+<span class="nc" id="L71">        ReportDTO reportDTO = null;</span>
+<span class="nc" id="L72">        int tomorrow = LocalDate.now().plusDays(1).getDayOfMonth();</span>
+
+<span class="nc bnc" id="L74" title="All 2 branches missed.">        if(isMunFound(id)){</span>
+<span class="nc" id="L75">            ResponseEntity&lt;WData&gt; responseDatos = restTemplate.exchange(url, HttpMethod.GET, null, WData.class);</span>
+<span class="nc" id="L76">            wData = responseDatos.getBody();</span>
+
+<span class="nc" id="L78">            ResponseEntity&lt;WReport[]&gt; response = restTemplate.exchange(wData.getData(), HttpMethod.GET, null, WReport[].class);</span>
+            try{
+<span class="nc" id="L80">                dayData = response.getBody()[0].getPrediction().getDay().stream().filter(</span>
+<span class="nc bnc" id="L81" title="All 2 branches missed.">                        diaI -&gt; tomorrow == diaI.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().getDayOfMonth()</span>
+<span class="nc" id="L82">                ).collect(Collectors.toList()).get(0);</span>
+<span class="nc" id="L83">            }catch (Exception e){}</span>
+
+<span class="nc" id="L85">            reportDTO = ReportMapper.INSTANCE.dayToReportDTO(dayData);</span>
+<span class="nc" id="L86">            ReportMapper.INSTANCE.updateNameReportDTOFromMun(reportDTO, this.getMunById(id));</span>
+        }
+
+<span class="nc" id="L89">        return reportDTO;</span>
+    }
+
+    @Override
+    public TemperatureDTO getConversion(Float avg, String unit) {
+<span class="nc" id="L94">        TemperatureDTO temperatureDTO = new TemperatureDTO();</span>
+<span class="nc bnc" id="L95" title="All 2 branches missed.">        if(unit.equals(&quot;G_CEL&quot;)){</span>
+<span class="nc" id="L96">            temperatureDTO.setUnit(&quot;G_CEL&quot;);</span>
+<span class="nc" id="L97">            temperatureDTO.setAvg((float) Math.round((avg - 32) * 5 / 9));</span>
+        } else {
+<span class="nc" id="L99">            temperatureDTO.setUnit(&quot;G_FAH&quot;);</span>
+<span class="nc" id="L100">            temperatureDTO.setAvg((float) Math.round((avg * 9 / 5) + 32));</span>
+        }
+<span class="nc" id="L102">        return temperatureDTO;</span>
+    }
+
+    public boolean isMunFound(String id){
+<span class="nc" id="L106">        List&lt;Municipality&gt; muns = this.getMuns();</span>
+<span class="nc" id="L107">        Municipality munFound = null;</span>
+<span class="nc" id="L108">        ReportDTO reportDTO = null;</span>
+        try{
+<span class="nc" id="L110">            munFound = muns.stream()</span>
+<span class="nc" id="L111">                    .filter(municipio -&gt; municipio.getId().equalsIgnoreCase(id))</span>
+<span class="nc" id="L112">                    .collect(Collectors.toList()).get(0);</span>
+<span class="nc" id="L113">        }catch(Exception e){}</span>
+
+<span class="nc bnc" id="L115" title="All 2 branches missed.">        return munFound != null;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

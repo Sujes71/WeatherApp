@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AemetController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">weather-app</a> &gt; <a href="index.source.html" class="el_package">com.springbootapp.weatherapp.controller</a> &gt; <span class="el_source">AemetController.java</span></div><h1>AemetController.java</h1><pre class="source lang-java linenums">package com.springbootapp.weatherapp.controller;
+
+import com.springbootapp.weatherapp.model.Municipality;
+import com.springbootapp.weatherapp.model.dto.ReportDTO;
+import com.springbootapp.weatherapp.model.dto.TemperatureDTO;
+import com.springbootapp.weatherapp.service.AemetService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+
+@RestController
+<span class="fc" id="L16">public class AemetController {</span>
+
+    @Autowired
+    AemetService aemetService;
+
+    @GetMapping(&quot;/aemet/mun/all&quot;)
+    public ResponseEntity&lt;List&lt;Municipality&gt;&gt; getMuns() {
+<span class="nc" id="L23">        List&lt;Municipality&gt; muns = this.aemetService.getMuns();</span>
+
+<span class="nc bnc" id="L25" title="All 2 branches missed.">        if (!muns.isEmpty()) {</span>
+<span class="nc" id="L26">            return ResponseEntity.ok(muns);</span>
+        } else {
+<span class="nc" id="L28">            return ResponseEntity.notFound().build();</span>
+        }
+    }
+    
+    @GetMapping(&quot;/aemet/mun/{id}&quot;)
+    public ResponseEntity&lt;Municipality&gt; getMunById(@PathVariable String id) {
+<span class="nc" id="L34">        Municipality mun = this.aemetService.getMunById(id);</span>
+
+<span class="nc bnc" id="L36" title="All 2 branches missed.">        if (mun != null) {</span>
+<span class="nc" id="L37">            return ResponseEntity.ok(mun);</span>
+        } else {
+<span class="nc" id="L39">            return ResponseEntity.notFound().build();</span>
+        }
+    }
+
+    @GetMapping(&quot;/aemet/mun/prediction/tomorrow/{id}&quot;)
+    public ResponseEntity&lt;ReportDTO&gt; getPredictMunTomorrow(@PathVariable String id) {
+<span class="nc" id="L45">        ReportDTO reportDTO = this.aemetService.getPredictMunTomorrow(id);</span>
+
+<span class="nc bnc" id="L47" title="All 2 branches missed.">        if (reportDTO != null) {</span>
+<span class="nc" id="L48">            return ResponseEntity.ok(reportDTO);</span>
+        } else {
+<span class="nc" id="L50">            return ResponseEntity.notFound().build();</span>
+        }
+    }
+
+    @GetMapping(&quot;/aemet/mun/conversion/{avg}/{unit}&quot;)
+    public ResponseEntity&lt;TemperatureDTO&gt; getConversion(@PathVariable Float avg, @PathVariable String unit) {
+<span class="nc" id="L56">        TemperatureDTO temperatureDTO = this.aemetService.getConversion(avg, unit);</span>
+
+<span class="nc bnc" id="L58" title="All 2 branches missed.">        if (temperatureDTO != null) {</span>
+<span class="nc" id="L59">            return ResponseEntity.ok(temperatureDTO);</span>
+        } else {
+<span class="nc" id="L61">            return ResponseEntity.notFound().build();</span>
+        }
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

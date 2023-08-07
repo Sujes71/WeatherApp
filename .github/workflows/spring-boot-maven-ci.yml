@@ -36,7 +36,7 @@ jobs:
       if: success() || failure()
       with:
           name: SpringBoot Report
-          path: target/site/jacoco/
+          path: weather-app/target/site/jacoco/
     - name: Stop Application
       run: |
         cd weather-app

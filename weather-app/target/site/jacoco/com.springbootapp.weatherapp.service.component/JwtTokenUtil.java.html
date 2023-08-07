@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>JwtTokenUtil.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">weather-app</a> &gt; <a href="index.source.html" class="el_package">com.springbootapp.weatherapp.service.component</a> &gt; <span class="el_source">JwtTokenUtil.java</span></div><h1>JwtTokenUtil.java</h1><pre class="source lang-java linenums">package com.springbootapp.weatherapp.service.component;
+
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import lombok.Data;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+
+import java.util.Date;
+import java.util.Random;
+
+@Component
+<span class="pc bnc" id="L13" title="All 22 branches missed.">@Data</span>
+public class JwtTokenUtil {
+
+    @Value(&quot;${jwt.secret}&quot;)
+<span class="nc" id="L17">    private String secret;</span>
+
+    @Value(&quot;${jwt.expiration}&quot;)
+<span class="nc" id="L20">    private Long expiration;</span>
+
+    private static final String CHARACTERS = &quot;ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789&quot;;
+    private static final int CODE_LENGTH = 15;
+
+    public String generateToken(String code) {
+<span class="fc" id="L26">        Date now = new Date();</span>
+<span class="fc" id="L27">        Date expirationDate = new Date(now.getTime() + expiration);</span>
+
+<span class="fc" id="L29">        return Jwts.builder()</span>
+<span class="fc" id="L30">                .setSubject(code)</span>
+<span class="fc" id="L31">                .setIssuedAt(now)</span>
+<span class="fc" id="L32">                .setExpiration(expirationDate)</span>
+<span class="fc" id="L33">                .signWith(SignatureAlgorithm.HS512, secret.getBytes())</span>
+<span class="fc" id="L34">                .compact();</span>
+    }
+
+    public String generateRandomCode(){
+<span class="fc" id="L38">        Random random = new Random();</span>
+<span class="fc" id="L39">        StringBuilder code = new StringBuilder();</span>
+
+<span class="fc bfc" id="L41" title="All 2 branches covered.">        for (int i = 0; i &lt; CODE_LENGTH; i++) {</span>
+<span class="fc" id="L42">            int randomIndex = random.nextInt(CHARACTERS.length());</span>
+<span class="fc" id="L43">            code.append(CHARACTERS.charAt(randomIndex));</span>
+        }
+
+<span class="fc" id="L46">        return code.toString();</span>
+    }
+
+    public boolean validateToken(String token) {
+        try {
+<span class="nc" id="L51">            Jwts.parser()</span>
+<span class="nc" id="L52">                    .setSigningKey(secret.getBytes())</span>
+<span class="nc" id="L53">                    .parseClaimsJws(token);</span>
+<span class="nc" id="L54">            return true;</span>
+<span class="nc" id="L55">        } catch (Exception e) {</span>
+<span class="nc" id="L56">            return false;</span>
+        }
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

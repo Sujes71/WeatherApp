@@ -3,6 +3,7 @@ com\springbootapp\weatherapp\config\WebMvcConfig.class
 com\springbootapp\weatherapp\model\mapper\ReportMapper.class
 com\springbootapp\weatherapp\model\Temperature.class
 com\springbootapp\weatherapp\model\WData.class
+com\springbootapp\weatherapp\service\component\HazelCastUtil.class
 com\springbootapp\weatherapp\WeatherAppApplication.class
 com\springbootapp\weatherapp\config\RestTemplateConfig.class
 com\springbootapp\weatherapp\service\AemetService.class
