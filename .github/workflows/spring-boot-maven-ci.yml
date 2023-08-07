@@ -1,16 +1,16 @@
-name: Java Spring Boot Application CI
- 
+name: Build and Test Java Spring Boot Application
+
 on:
   push:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
- 
+
 jobs:
   build:
- 
+
     runs-on: ubuntu-latest
- 
+
     steps:
     - uses: actions/checkout@v3
     - name: Set up JDK 17
@@ -18,17 +18,23 @@ jobs:
       with:
         java-version: '17'
         distribution: 'adopt'
-        cache: maven
-    
     - name: Build with Maven
+      run: mvn clean install -DskipTests
+    - name: Start Application
       run: |
-          cd weather-app
-          mvn clean verify
-          mvn jacoco:report
- 
+        cd weather-app
+        mvn spring-boot:run &
+        sleep 15 # Give the application some time to start
+    - name: Run Tests
+      run: |
+        cd weather-app
+        mvn test
     - name: Test Report
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v2
       if: success() || failure()
       with:
-          name: JaCoCo Report
-          path: weather-app/htmlReport/
+          name: SpringBoot Report
+          path: target/site/jacoco/
+    - name: Stop Application
+      run: |
+        pkill -f "your-application-name.jar"

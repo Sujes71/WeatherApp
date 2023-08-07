@@ -10,6 +10,7 @@ import com.springbootapp.weatherapp.model.dto.ReportDTO;
 import com.springbootapp.weatherapp.model.dto.TemperatureDTO;
 import com.springbootapp.weatherapp.model.mapper.ReportMapper;
 import com.springbootapp.weatherapp.service.AemetService;
+import com.springbootapp.weatherapp.service.component.HazelCastUtil;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -29,6 +30,8 @@ public class AemetServiceImpl implements AemetService {
 
     @Autowired
     private RestTemplate restTemplate;
+    @Autowired
+    private HazelCastUtil hazelCastUtil;
     @Value("${aemet.api-key}")
     private String apiKey;
 
@@ -38,24 +41,15 @@ public class AemetServiceImpl implements AemetService {
     @Value("${aemet.url-master}")
     private String master;
 
-    @Autowired
-    private HazelcastInstance hazelcastInstance;
-    private IMap<String, List<Municipality>> munCache;
-
-    @PostConstruct
-    public void init() {
-        munCache = hazelcastInstance.getMap("map");
-    }
-
     @Override
     public List<Municipality> getMuns() {
         String url = String.format("%ss%s", master, apiKey);
-        if (munCache.containsKey(url)) {
-            return munCache.get(url);
+        if (hazelCastUtil.getMunCache().containsKey(url)) {
+            return hazelCastUtil.getMunCache().get(url);
         }
         ResponseEntity<Municipality[]> response = restTemplate.exchange(url, HttpMethod.GET, null, Municipality[].class);
         List<Municipality> muns = Arrays.asList(response.getBody());
-        munCache.put(url, muns);
+        hazelCastUtil.getMunCache().put(url, muns);
 
         return muns;
     }
