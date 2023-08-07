@@ -29,5 +29,5 @@ jobs:
       uses: actions/upload-artifact@v3
       if: success() || failure()
       with:
-          name: SpringBoot Report               # Name of the folder
-          path: weather-app/target/site/serenity/           # Path to test results
+          name: SpringBoot Report
+          path: /target/site/serenity/
