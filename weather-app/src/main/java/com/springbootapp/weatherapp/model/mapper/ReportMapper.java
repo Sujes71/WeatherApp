@@ -1,8 +1,8 @@
 package com.springbootapp.weatherapp.model.mapper;
 
+import com.springbootapp.weatherapp.model.DayData;
 import com.springbootapp.weatherapp.model.Municipality;
 import com.springbootapp.weatherapp.model.dto.ReportDTO;
-import com.springbootapp.weatherapp.model.DayData;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;

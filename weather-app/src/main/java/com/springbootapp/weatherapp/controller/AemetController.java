@@ -3,7 +3,6 @@ package com.springbootapp.weatherapp.controller;
 import com.springbootapp.weatherapp.model.Municipality;
 import com.springbootapp.weatherapp.model.dto.ReportDTO;
 import com.springbootapp.weatherapp.model.dto.TemperatureDTO;
-
 import com.springbootapp.weatherapp.service.AemetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

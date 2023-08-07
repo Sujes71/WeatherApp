@@ -1,0 +1,16 @@
+version: '3.9'
+
+services:
+  weather-app:
+    build:
+      context: ./weather-app
+    container_name: weather-app
+    ports:
+      - 8080:8080
+
+  weather-front:
+    build:
+      context: ./weather-front
+    container_name: weather-front
+    ports:
+      - 4200:80

@@ -2,6 +2,7 @@ C:\Users\destr\IdeaProjects\weather-app\src\main\java\com\springbootapp\weathera
 C:\Users\destr\IdeaProjects\weather-app\src\main\java\com\springbootapp\weatherapp\model\DayData.java
 C:\Users\destr\IdeaProjects\weather-app\src\main\java\com\springbootapp\weatherapp\model\dto\ReportDTO.java
 C:\Users\destr\IdeaProjects\weather-app\src\main\java\com\springbootapp\weatherapp\interceptor\JwtInterceptor.java
+C:\Users\destr\IdeaProjects\weather-app\src\main\java\com\springbootapp\weatherapp\service\webfilter\CustomFilter.java
 C:\Users\destr\IdeaProjects\weather-app\src\main\java\com\springbootapp\weatherapp\service\AemetService.java
 C:\Users\destr\IdeaProjects\weather-app\src\main\java\com\springbootapp\weatherapp\exception\GlobalExceptionHandler.java
 C:\Users\destr\IdeaProjects\weather-app\src\main\java\com\springbootapp\weatherapp\model\Prediction.java
@@ -17,5 +18,6 @@ C:\Users\destr\IdeaProjects\weather-app\src\main\java\com\springbootapp\weathera
 C:\Users\destr\IdeaProjects\weather-app\src\main\java\com\springbootapp\weatherapp\service\serviceimpl\AemetServiceImpl.java
 C:\Users\destr\IdeaProjects\weather-app\src\main\java\com\springbootapp\weatherapp\model\mapper\ReportMapper.java
 C:\Users\destr\IdeaProjects\weather-app\src\main\java\com\springbootapp\weatherapp\service\component\JwtTokenUtil.java
+C:\Users\destr\IdeaProjects\weather-app\src\main\java\com\springbootapp\weatherapp\config\CustomWebSecurityConfigurerAdapter.java
 C:\Users\destr\IdeaProjects\weather-app\src\main\java\com\springbootapp\weatherapp\model\WReport.java
 C:\Users\destr\IdeaProjects\weather-app\src\main\java\com\springbootapp\weatherapp\config\HazelCastConfig.java

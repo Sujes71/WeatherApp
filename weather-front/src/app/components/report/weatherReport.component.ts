@@ -22,20 +22,26 @@ export class WeatherReportComponent implements OnInit {
   temAvg: string = '';
   filteredMuns: Observable<Municipality[]> = new Observable<Municipality[]>();
   reportJSON: any = {};
-  munFound: boolean = true;
   unitSelected: string = "G_CEL";
   code: string = "";
+  lastMunicipioId: string = "";
 
   constructor(private WeatherReportService: WeatherReportService) { }
 
   ngOnInit(): void {
     this.getMuns();
+    const storedMunicipioId = localStorage.getItem('lastMunicipioId');
+
+    if(storedMunicipioId != null){
+      this.lastMunicipioId = storedMunicipioId;
+        this.getMunPredictionTomorrow(this.lastMunicipioId);
+        this.checkImg = true;
+    } 
   }
 
   getMunPredictionTomorrow = async (id: string): Promise<void> => {
     try {
       this.reportJSON = await firstValueFrom(this.WeatherReportService.getMunPredictionTomorrow(id));
-      this.munFound = true;
       const fecha = new Date(this.reportJSON.date);
       const formatoDeseado = "EEEE, d 'de' MMMM 'de' y";
       this.munDate = format(fecha, formatoDeseado, { locale: es });
@@ -47,7 +53,6 @@ export class WeatherReportComponent implements OnInit {
         this.temAvg = this.reportJSON.temAvg +"ºC";
     } catch (error) {
       this.reportJSON = null;
-      this.munFound = false;
       console.error(error);
     }
   }
@@ -111,11 +116,9 @@ export class WeatherReportComponent implements OnInit {
     const selectedMun = this.muns.find(mun => mun.name === selectedMunName);
 
     if (selectedMun) {
-      if (!this.munFound) {
-        this.munFound = true;
-      }
       this.getMunPredictionTomorrow(selectedMun.id);
       this.checkImg = true;
+      localStorage.setItem('lastMunicipioId', selectedMun.id);
     }
   }
 
