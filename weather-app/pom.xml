@@ -209,12 +209,6 @@
 			</plugin>
 
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-plugin</artifactId>
-				<version>3.1.2</version>
-			</plugin>
-
-			<plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
 				<version>0.8.10</version>
@@ -234,35 +228,58 @@
 				</executions>
 			</plugin>
 
-<!--			<plugin>
-				<groupId>io.swagger.codegen.v3</groupId>
-				<artifactId>swagger-codegen-maven-plugin</artifactId>
-				<version>3.0.46</version>
+			<plugin>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.22.2</version>
 				<executions>
-					<execution>
-						<goals>
-							<goal>generate</goal>
-						</goals>
-						<configuration>
-							<inputSpec>${project.basedir}/src/main/resources/weather-api.yaml</inputSpec>
-							<language>spring</language>
-							<output>${project.build.directory}/generated-sources/</output>
-							<generateSupportingFiles>false</generateSupportingFiles>
-							<apiPackage>com.springbootapp.weatherapp.api</apiPackage>
-							<modelPackage>com.springbootapp.weatherapp.models</modelPackage>
-							<configOptions>
-								<interfaceOnly>true</interfaceOnly>
-								<serializableModel>true</serializableModel>
-								<useBeanValidation>true</useBeanValidation>
-								<useOptional>true</useOptional>
-								<performBeanValidation>true</performBeanValidation>
-								<useJacksonAnnotations>false</useJacksonAnnotations>
-							</configOptions>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin> -->
+				<execution>
+					<phase>integration-test</phase>
+					<goals>
+						<goal>test</goal>
+					</goals>
+					<configuration>
+						<excludes>
+							<exclude>none</exclude>
+						</excludes>
+						<includes>
+							<include>**/*IntegrationTest</include>
+						</includes>
+					</configuration>
+				</execution>
+			</executions>
+		</plugin>
+
+
+			<!--			<plugin>
+                            <groupId>io.swagger.codegen.v3</groupId>
+                            <artifactId>swagger-codegen-maven-plugin</artifactId>
+                            <version>3.0.46</version>
+                            <executions>
+                                <execution>
+                                    <goals>
+                                        <goal>generate</goal>
+                                    </goals>
+                                    <configuration>
+                                        <inputSpec>${project.basedir}/src/main/resources/weather-api.yaml</inputSpec>
+                                        <language>spring</language>
+                                        <output>${project.build.directory}/generated-sources/</output>
+                                        <generateSupportingFiles>false</generateSupportingFiles>
+                                        <apiPackage>com.springbootapp.weatherapp.api</apiPackage>
+                                        <modelPackage>com.springbootapp.weatherapp.models</modelPackage>
+                                        <configOptions>
+                                            <interfaceOnly>true</interfaceOnly>
+                                            <serializableModel>true</serializableModel>
+                                            <useBeanValidation>true</useBeanValidation>
+                                            <useOptional>true</useOptional>
+                                            <performBeanValidation>true</performBeanValidation>
+                                            <useJacksonAnnotations>false</useJacksonAnnotations>
+                                        </configOptions>
+                                    </configuration>
+                                </execution>
+                            </executions>
+                        </plugin> -->
 		</plugins>
+
 	</build>
 
 </project>
