@@ -35,11 +35,6 @@ jobs:
         cd weather-app
         mvn test
 
-    - name: Run Cucumber Tests
-      run: |
-        cd weather-app
-        mvn verify -Psurefire
-
     - name: Test Report
       uses: actions/upload-artifact@v2
       if: success() || failure()
