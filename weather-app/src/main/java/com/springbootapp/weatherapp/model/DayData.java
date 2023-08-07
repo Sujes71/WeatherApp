@@ -1,5 +1,6 @@
 package com.springbootapp.weatherapp.model;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
@@ -8,10 +9,10 @@ import java.util.List;
 
 @Data
 public class DayData {
-    @JsonProperty("fecha")
+    @JsonAlias("fecha")
     private Date date;
-    @JsonProperty("temperatura")
+    @JsonAlias("temperatura")
     private Temperature temperature;
-    @JsonProperty("probPrecipitacion")
+    @JsonAlias("probPrecipitacion")
     private List<ProbPrecipitation> probPrecipitations;
 }

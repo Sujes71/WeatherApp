@@ -28,7 +28,7 @@ public class AemetController {
             return ResponseEntity.notFound().build();
         }
     }
-
+    
     @GetMapping("/aemet/mun/{id}")
     public ResponseEntity<Municipality> getMunById(@PathVariable String id) {
         Municipality mun = this.aemetService.getMunById(id);
