@@ -23,8 +23,7 @@ jobs:
     - name: Build with Maven
       run: |
           cd weather-app
-          mvn clean verify
-          mvn jacoco:report
+          mvn clean verify -Djacoco:coverage
  
     - name: Test Report
       uses: actions/upload-artifact@v3
