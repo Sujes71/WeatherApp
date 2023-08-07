@@ -21,7 +21,7 @@ import java.util.concurrent.TimeUnit;
 public class CustomFilter extends GenericFilterBean {
     private final Map<String, LocalBucket> buckets = new ConcurrentHashMap<>();
     private final Map<String, Long> blockedUsers = new ConcurrentHashMap<>();
-    private static final int BUCKET_CAPACITY = 15;
+    private static final int BUCKET_CAPACITY = 100;
     private static final int REFILL_INTERVAL_MINUTES = 1;
     private static final int BLOCK_DURATION_MINUTES = 40;
 
