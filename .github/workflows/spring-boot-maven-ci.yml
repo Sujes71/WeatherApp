@@ -19,7 +19,9 @@ jobs:
         java-version: '17'
         distribution: 'adopt'
     - name: Build with Maven
-      run: mvn clean install -DskipTests
+      run: |
+        cd weather-app
+        mvn clean install -DskipTests
     - name: Start Application
       run: |
         cd weather-app
@@ -37,4 +39,5 @@ jobs:
           path: target/site/jacoco/
     - name: Stop Application
       run: |
-        pkill -f "your-application-name.jar"
+        cd weather-app
+        pkill -f "weather-app.jar"
