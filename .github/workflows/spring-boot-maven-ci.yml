@@ -23,16 +23,9 @@ jobs:
     - name: Build with Maven
       run: |
           cd weather-app
-          mvn -B package -Pcoverage
+          mvn clean verify
+          mvn jacoco:report
  
-    - name: Generate JaCoCo badge
-      id: jacoco
-      uses: cicirello/jacoco-badge-generator@v2
-      with:
-        badges-directory: badges
-        generate-branches-badge: true
-        generate-summary: true
-            
     - name: Test Report
       uses: actions/upload-artifact@v3
       if: success() || failure()
