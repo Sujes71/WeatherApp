@@ -18,26 +18,34 @@ jobs:
       with:
         java-version: '17'
         distribution: 'adopt'
+
     - name: Build with Maven
       run: |
         cd weather-app
         mvn clean install -DskipTests
+
     - name: Start Application
       run: |
         cd weather-app
         mvn spring-boot:run &
         sleep 15 # Give the application some time to start
+
     - name: Run Tests
       run: |
         cd weather-app
         mvn test
+        
+    - name: Run Cucumber Tests
+        run: |
+          cd weather-app
+          mvn verify -DskipTests=false -Dtest=RunCucumberTest
+
     - name: Test Report
       uses: actions/upload-artifact@v2
       if: success() || failure()
       with:
           name: SpringBoot Report
           path: weather-app/target/site/jacoco/
+
     - name: Stop Application
-      run: |
-        cd weather-app
-        pkill -f "weather-app.jar"
+      run: pkill -f "weather-app.jar"
