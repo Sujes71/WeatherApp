@@ -27,4 +27,4 @@ jobs:
       - name: Run tests
         run: |
             cd weather-front
-            npm test -- --watch=false
+            ng test --watch=false --browsers=ChromeHeadless --single-run
