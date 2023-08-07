@@ -33,7 +33,12 @@ jobs:
     - name: Run Tests
       run: |
         cd weather-app
-        mvn verify
+        mvn test
+
+    - name: Run Cucumber Tests
+      run: |
+        cd weather-app
+        mvn verify -Psurefire
 
     - name: Test Report
       uses: actions/upload-artifact@v2
@@ -43,4 +48,7 @@ jobs:
           path: weather-app/target/site/jacoco/
 
     - name: Stop Application
-      run: pkill -f "weather-app.jar"
+      run: |
+        pkill -f |
+        jar_file=$(find "${{ github.workspace }}" -name "*.jar" | head -n 1)
+        echo "::set-output name=jar_file::${jar_file}"
