@@ -34,11 +34,11 @@ jobs:
       run: |
         cd weather-app
         mvn test
-        
+
     - name: Run Cucumber Tests
-        run: |
-          cd weather-app
-          mvn verify -DskipTests=false -Dtest=RunCucumberTest
+      run: |
+        cd weather-app
+        mvn verify -DskipTests=false -Dtest=RunCucumberTest
 
     - name: Test Report
       uses: actions/upload-artifact@v2
