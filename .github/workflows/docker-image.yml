@@ -16,12 +16,12 @@ jobs:
 
       - name: Build Frontend
         run: |
-          cd weather-front
+          cd ../../weather-front
           docker build -t sujes7/weather-front:${{ github.sha }} .
 
       - name: Build Backend
         run: |
-          cd weather-back
+          cd ../../weather-back
           docker build -t sujes7/weather-back:${{ github.sha }} .
 
       - name: Log in to Docker registry
