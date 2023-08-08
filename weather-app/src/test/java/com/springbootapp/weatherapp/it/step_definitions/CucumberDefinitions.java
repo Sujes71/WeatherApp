@@ -1,47 +1,52 @@
 package com.springbootapp.weatherapp.it.step_definitions;
 
+import com.hazelcast.map.IMap;
 import com.springbootapp.weatherapp.controller.AuthController;
 import com.springbootapp.weatherapp.model.Municipality;
+import com.springbootapp.weatherapp.service.component.HazelCastUtil;
 import com.springbootapp.weatherapp.service.component.JwtTokenUtil;
 import com.springbootapp.weatherapp.service.serviceimpl.AemetServiceImpl;
+import io.cucumber.java.Before;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import io.cucumber.spring.CucumberContextConfiguration;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
-import org.mockito.junit.jupiter.MockitoSettings;
-import org.mockito.quality.Strictness;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.*;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.web.client.RestTemplate;
-import org.junit.Before;
 import org.mockito.MockitoAnnotations;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.when;
 
-@RunWith(MockitoJUnitRunner.class)
-@MockitoSettings(strictness = Strictness.LENIENT)
+@CucumberContextConfiguration
 public class CucumberDefinitions {
     @InjectMocks
     private AuthController authController;
     @Mock
     private JwtTokenUtil mockJwtTokenUtil;
     @Mock
-    private Jwts mockJwts;
-    @Mock
     private RestTemplate mockRestTemplate;
     @InjectMocks
     private AemetServiceImpl aemetService;
+    @Mock
+    private IMap<String, List<Municipality>> mockImap;
+    @Mock
+    private HazelCastUtil mockHazelCastUtil;
+    @Mock
+    private Jwts mockJwts;
 
     private ResponseEntity<Municipality[]> response;
     private HttpStatusCode statusCode;
-    private HttpEntity<?> requestEntity;
-    private HttpHeaders headers;
 
     @Before
     public void setup() {
@@ -54,22 +59,13 @@ public class CucumberDefinitions {
         String tokenGenerated = "simulacion_token_generado_de_code";
 
         when(mockJwtTokenUtil.generateRandomCode()).thenReturn(code);
-        when(mockJwts.builder()
-                .setSubject(code)
-                .setIssuedAt(any())
-                .setExpiration(any())
-                .signWith(SignatureAlgorithm.HS512, anyString().getBytes())
-                .compact()).thenReturn(tokenGenerated);
+        when(mockJwtTokenUtil.generateToken(code)).thenReturn(tokenGenerated);
 
-        String controlCode = String.valueOf(this.authController.getRandomCode());
-        String controlToken = String.valueOf(this.authController.getToken(controlCode));
+        String controlCode = this.authController.getRandomCode().getBody();
+        String controlToken = this.authController.getToken(controlCode).getBody();
 
         assertEquals(controlCode, code);
         assertEquals(controlToken, tokenGenerated);
-
-        headers = new HttpHeaders();
-        headers.setBearerAuth(tokenGenerated);
-        requestEntity = new HttpEntity<>(headers);
     }
 
     @When("a GET request is made to {string}")
@@ -83,19 +79,27 @@ public class CucumberDefinitions {
         mun2.setId("id23432");
         mun2.setName("Marbella");
 
-        ResponseEntity<Municipality[]> responseEntity =
+        response =
                 new ResponseEntity<>(new Municipality[]{mun1, mun2}, HttpStatus.OK);
         when(mockRestTemplate.exchange(
-                url,
+                anyString(),
                 eq(HttpMethod.GET),
-                requestEntity,
+                eq(null),
                 eq(Municipality[].class)))
-                .thenReturn(responseEntity);
-        statusCode = responseEntity.getStatusCode();
+                .thenReturn(response);
+        statusCode = response.getStatusCode();
 
-        String name = this.aemetService.getMuns().get(1).getName();
-        assertEquals("Marbella", name);
-        assertEquals(2, responseEntity.getBody().length);
+        when(mockHazelCastUtil.getMunCache()).thenReturn(mockImap);
+
+        List<Municipality> munsI = new ArrayList<>();
+        munsI.add(mun1);
+        munsI.add(mun2);
+
+        when(mockImap.get(anyString())).thenReturn(munsI);
+
+        List<Municipality> muns = this.aemetService.getMuns();
+        assertEquals("Marbella", muns.get(1).getName());
+        assertEquals(2, response.getBody().length);
     }
 
     @Then("a successful response is received with a list of municipalities")
