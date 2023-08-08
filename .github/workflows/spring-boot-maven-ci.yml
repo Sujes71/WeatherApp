@@ -25,7 +25,7 @@ jobs:
         mvn clean install
 
     - name: Test Report
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       if: success() || failure()
       with:
           name: SpringBoot Report
