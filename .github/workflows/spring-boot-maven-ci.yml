@@ -22,23 +22,7 @@ jobs:
     - name: Build with Maven
       run: |
         cd weather-app
-        mvn clean install -DskipTests
-
-    - name: Start Application
-      run: |
-        cd weather-app
-        mvn spring-boot:run &
-        sleep 15 # Give the application some time to start
-
-    - name: Run Tests
-      run: |
-        cd weather-app
-        mvn test
-
-    - name: Run Cucumber Tests
-      run: |
-        cd weather-app
-        mvn verify -Psurefire
+        mvn clean install
 
     - name: Test Report
       uses: actions/upload-artifact@v2
@@ -46,9 +30,3 @@ jobs:
       with:
           name: SpringBoot Report
           path: weather-app/target/site/jacoco/
-
-    - name: Stop Application
-      run: |
-        pkill -f |
-        jar_file=$(find "${{ github.workspace }}" -name "*.jar" | head -n 1)
-        echo "::set-output name=jar_file::${jar_file}"

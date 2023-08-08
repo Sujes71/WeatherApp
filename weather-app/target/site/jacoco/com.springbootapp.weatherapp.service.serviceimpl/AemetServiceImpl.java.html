@@ -43,15 +43,15 @@ import java.util.stream.Collectors;
 
     @Override
     public List&lt;Municipality&gt; getMuns() {
-<span class="nc" id="L46">        String url = String.format(&quot;%ss%s&quot;, master, apiKey);</span>
-<span class="nc bnc" id="L47" title="All 2 branches missed.">        if (hazelCastUtil.getMunCache().containsKey(url)) {</span>
+<span class="fc" id="L46">        String url = String.format(&quot;%ss%s&quot;, master, apiKey);</span>
+<span class="pc bpc" id="L47" title="1 of 2 branches missed.">        if (hazelCastUtil.getMunCache().containsKey(url)) {</span>
 <span class="nc" id="L48">            return hazelCastUtil.getMunCache().get(url);</span>
         }
-<span class="nc" id="L50">        ResponseEntity&lt;Municipality[]&gt; response = restTemplate.exchange(url, HttpMethod.GET, null, Municipality[].class);</span>
-<span class="nc" id="L51">        List&lt;Municipality&gt; muns = Arrays.asList(response.getBody());</span>
-<span class="nc" id="L52">        hazelCastUtil.getMunCache().put(url, muns);</span>
+<span class="fc" id="L50">        ResponseEntity&lt;Municipality[]&gt; response = restTemplate.exchange(url, HttpMethod.GET, null, Municipality[].class);</span>
+<span class="fc" id="L51">        List&lt;Municipality&gt; muns = Arrays.asList(response.getBody());</span>
+<span class="fc" id="L52">        hazelCastUtil.getMunCache().put(url, muns);</span>
 
-<span class="nc" id="L54">        return muns;</span>
+<span class="fc" id="L54">        return muns;</span>
     }
 
     @Override

@@ -1,3 +1,3 @@
-com\springbootapp\weatherapp\unit\WeatherAppJunitTest.class
-com\springbootapp\weatherapp\mock\WeatherAppMockTest.class
-com\springbootapp\weatherapp\cucumber\WeatherAppCucumberIntegrationTest.class
+com\springbootapp\weatherapp\it\step_definitions\CucumberDefinitions.class
+com\springbootapp\weatherapp\ut\WeatherAppJunitTest.class
+com\springbootapp\weatherapp\it\runners\CucumberIntegrationTest.class

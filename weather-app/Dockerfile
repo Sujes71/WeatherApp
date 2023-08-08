@@ -7,7 +7,7 @@ COPY pom.xml /home/app
 COPY .mvn /home/app/.mvn
 COPY src /home/app/src
 
-RUN mvn -f /home/app/pom.xml clean package
+RUN mvn -f /home/app/pom.xml clean package -DskipTests
 
 # Fase de producción
 FROM openjdk:17-jdk-alpine

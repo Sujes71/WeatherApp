@@ -1,5 +1,5 @@
 GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
-weather-app,com.springbootapp.weatherapp.service.serviceimpl,AemetServiceImpl,233,40,10,0,38,5,11,2,6,2
+weather-app,com.springbootapp.weatherapp.service.serviceimpl,AemetServiceImpl,188,85,9,1,32,11,10,3,5,3
 weather-app,com.springbootapp.weatherapp.model.mapper,ReportMapper,0,5,0,0,0,1,0,1,0,1
 weather-app,com.springbootapp.weatherapp.model.mapper,ReportMapperImpl,3,55,2,4,2,10,2,4,0,3
 weather-app,com.springbootapp.weatherapp.model,Municipality,101,14,22,0,1,2,16,4,5,4
@@ -17,7 +17,7 @@ weather-app,com.springbootapp.weatherapp.controller,AuthController,25,3,4,0,8,1,
 weather-app,com.springbootapp.weatherapp.controller,AemetController,53,3,8,0,16,1,8,1,4,1
 weather-app,com.springbootapp.weatherapp.model.dto,TemperatureDTO,115,0,22,0,3,0,20,0,9,0
 weather-app,com.springbootapp.weatherapp.model.dto,ReportDTO,201,37,46,0,0,9,28,10,5,10
-weather-app,com.springbootapp.weatherapp.service.component,JwtTokenUtil,125,60,22,2,8,15,20,4,9,3
+weather-app,com.springbootapp.weatherapp.service.component,JwtTokenUtil,182,3,24,0,22,1,23,1,11,1
 weather-app,com.springbootapp.weatherapp.service.component,HazelCastUtil,109,13,22,0,1,4,18,3,7,3
 weather-app,com.springbootapp.weatherapp.config,RestTemplateConfig,0,32,0,0,0,9,0,2,0,2
 weather-app,com.springbootapp.weatherapp.config,HazelCastConfig,0,46,0,0,0,13,0,2,0,2
