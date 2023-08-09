@@ -71,7 +71,6 @@ public class CucumberDefinitions {
 
     @When("a GET request is made to {string}")
     public void a_GET_request_is_made_to(String endpoint) {
-        String url = String.format("http://localhost:8080%s", endpoint);
         Municipality mun1 = new Municipality();
         mun1.setId("id44001");
         mun1.setName("Ababuj");

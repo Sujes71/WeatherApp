@@ -19,8 +19,11 @@ public class JwtTokenUtil {
     @Value("${jwt.expiration}")
     private Long expiration;
 
-    private static final String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-    private static final int CODE_LENGTH = 15;
+    @Value("${jwt.characters}")
+    private String CHARACTERS;
+
+    @Value("${jwt.length}")
+    private int CODE_LENGTH;
 
     public String generateToken(String code) {
         Date now = new Date();

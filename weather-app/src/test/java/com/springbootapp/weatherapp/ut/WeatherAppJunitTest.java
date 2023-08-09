@@ -152,6 +152,7 @@ class WeatherAppJunitTest {
 
         assertEquals("Nº elementos probPrepitation", 1, reportDTO.getProbPrecipitations().size());
 		dayData.setProbPrecipitations(probPrecipitationList2);
+
 		reportDTO = ReportMapper.INSTANCE.dayToReportDTO(dayData);
 		assertEquals("ProbPre", reportDTO.getProbPrecipitations(), dayData.getProbPrecipitations());
 

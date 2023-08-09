@@ -1,9 +1,7 @@
 package com.springbootapp.weatherapp.service.serviceimpl;
 
-import com.springbootapp.weatherapp.model.DayData;
-import com.springbootapp.weatherapp.model.Municipality;
-import com.springbootapp.weatherapp.model.WData;
-import com.springbootapp.weatherapp.model.WReport;
+import com.springbootapp.weatherapp.enums.TemperatureEnum;
+import com.springbootapp.weatherapp.model.*;
 import com.springbootapp.weatherapp.model.dto.ReportDTO;
 import com.springbootapp.weatherapp.model.dto.TemperatureDTO;
 import com.springbootapp.weatherapp.model.mapper.ReportMapper;
@@ -22,13 +20,12 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.springbootapp.weatherapp.enums.TemperatureEnum.TEMPERATURE_CEL;
+import static com.springbootapp.weatherapp.enums.TemperatureEnum.TEMPERATURE_FAH;
+
 @Service
 public class AemetServiceImpl implements AemetService {
 
-    @Autowired
-    private RestTemplate restTemplate;
-    @Autowired
-    private HazelCastUtil hazelCastUtil;
     @Value("${aemet.api-key}")
     private String apiKey;
 
@@ -37,6 +34,11 @@ public class AemetServiceImpl implements AemetService {
 
     @Value("${aemet.url-master}")
     private String master;
+
+    @Autowired
+    private RestTemplate restTemplate;
+    @Autowired
+    private HazelCastUtil hazelCastUtil;
 
     @Override
     public List<Municipality> getMuns() {
@@ -63,7 +65,7 @@ public class AemetServiceImpl implements AemetService {
     @Override
     public ReportDTO getPredictMunTomorrow(String id) {
         String url = String.format("%s%s%s", prediction, id.substring(2), apiKey);
-        WData wData = null;
+        WData wData;
         DayData dayData = null;
         ReportDTO reportDTO = null;
         int tomorrow = LocalDate.now().plusDays(1).getDayOfMonth();
@@ -89,11 +91,11 @@ public class AemetServiceImpl implements AemetService {
     @Override
     public TemperatureDTO getConversion(Float avg, String unit) {
         TemperatureDTO temperatureDTO = new TemperatureDTO();
-        if(unit.equals("G_CEL")){
-            temperatureDTO.setUnit("G_CEL");
+        if(unit.equals(TEMPERATURE_CEL.getUnit())){
+            temperatureDTO.setUnit(TEMPERATURE_CEL.getUnit());
             temperatureDTO.setAvg((float) Math.round((avg - 32) * 5 / 9));
         } else {
-            temperatureDTO.setUnit("G_FAH");
+            temperatureDTO.setUnit(TEMPERATURE_FAH.getUnit());
             temperatureDTO.setAvg((float) Math.round((avg * 9 / 5) + 32));
         }
         return temperatureDTO;
@@ -102,7 +104,6 @@ public class AemetServiceImpl implements AemetService {
     public boolean isMunFound(String id){
         List<Municipality> muns = this.getMuns();
         Municipality munFound = null;
-        ReportDTO reportDTO = null;
         try{
             munFound = muns.stream()
                     .filter(municipio -> municipio.getId().equalsIgnoreCase(id))

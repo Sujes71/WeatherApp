@@ -8,17 +8,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @RestController
+@RequestMapping("/aemet/mun")
 public class AemetController {
 
     @Autowired
     AemetService aemetService;
 
-    @GetMapping("/aemet/mun/all")
+    @GetMapping("/all")
     public ResponseEntity<List<Municipality>> getMuns() {
         List<Municipality> muns = this.aemetService.getMuns();
 
@@ -29,7 +31,7 @@ public class AemetController {
         }
     }
     
-    @GetMapping("/aemet/mun/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Municipality> getMunById(@PathVariable String id) {
         Municipality mun = this.aemetService.getMunById(id);
 
@@ -40,7 +42,7 @@ public class AemetController {
         }
     }
 
-    @GetMapping("/aemet/mun/prediction/tomorrow/{id}")
+    @GetMapping("/prediction/tomorrow/{id}")
     public ResponseEntity<ReportDTO> getPredictMunTomorrow(@PathVariable String id) {
         ReportDTO reportDTO = this.aemetService.getPredictMunTomorrow(id);
 
@@ -51,7 +53,7 @@ public class AemetController {
         }
     }
 
-    @GetMapping("/aemet/mun/conversion/{avg}/{unit}")
+    @GetMapping("/conversion/{avg}/{unit}")
     public ResponseEntity<TemperatureDTO> getConversion(@PathVariable Float avg, @PathVariable String unit) {
         TemperatureDTO temperatureDTO = this.aemetService.getConversion(avg, unit);
 
