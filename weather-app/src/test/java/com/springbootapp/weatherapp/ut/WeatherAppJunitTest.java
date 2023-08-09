@@ -1,37 +1,26 @@
 package com.springbootapp.weatherapp.ut;
 
 
-import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.map.IMap;
-import com.springbootapp.weatherapp.WeatherAppApplication;
 import com.springbootapp.weatherapp.model.DayData;
 import com.springbootapp.weatherapp.model.Municipality;
 import com.springbootapp.weatherapp.model.ProbPrecipitation;
 import com.springbootapp.weatherapp.model.Temperature;
 import com.springbootapp.weatherapp.model.dto.ReportDTO;
 import com.springbootapp.weatherapp.model.mapper.ReportMapper;
-import com.springbootapp.weatherapp.service.AemetService;
 import com.springbootapp.weatherapp.service.component.HazelCastUtil;
 import com.springbootapp.weatherapp.service.serviceimpl.AemetServiceImpl;
-import org.checkerframework.checker.units.qual.A;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.context.annotation.Import;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;

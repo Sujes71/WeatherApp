@@ -1,7 +1,5 @@
 package com.springbootapp.weatherapp.service.serviceimpl;
 
-import com.hazelcast.core.HazelcastInstance;
-import com.hazelcast.map.IMap;
 import com.springbootapp.weatherapp.model.DayData;
 import com.springbootapp.weatherapp.model.Municipality;
 import com.springbootapp.weatherapp.model.WData;
@@ -11,7 +9,6 @@ import com.springbootapp.weatherapp.model.dto.TemperatureDTO;
 import com.springbootapp.weatherapp.model.mapper.ReportMapper;
 import com.springbootapp.weatherapp.service.AemetService;
 import com.springbootapp.weatherapp.service.component.HazelCastUtil;
-import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
