@@ -28,5 +28,5 @@ jobs:
       uses: actions/upload-artifact@v3
       if: success() || failure()
       with:
-          name: SpringBoot Report
+          name: Jacoco Report
           path: weather-app/target/site/jacoco/
