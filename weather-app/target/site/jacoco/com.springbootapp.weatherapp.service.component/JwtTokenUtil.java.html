@@ -10,50 +10,53 @@ import java.util.Date;
 import java.util.Random;
 
 @Component
-<span class="pc bnc" id="L13" title="All 22 branches missed.">@Data</span>
+<span class="pc bpc" id="L13" title="29 of 32 branches missed.">@Data</span>
 public class JwtTokenUtil {
 
     @Value(&quot;${jwt.secret}&quot;)
-<span class="nc" id="L17">    private String secret;</span>
+<span class="fc" id="L17">    private String secret;</span>
 
     @Value(&quot;${jwt.expiration}&quot;)
-<span class="nc" id="L20">    private Long expiration;</span>
+<span class="fc" id="L20">    private Long expiration;</span>
 
-    private static final String CHARACTERS = &quot;ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789&quot;;
-    private static final int CODE_LENGTH = 15;
+    @Value(&quot;${jwt.characters}&quot;)
+<span class="fc" id="L23">    private String CHARACTERS;</span>
+
+    @Value(&quot;${jwt.length}&quot;)
+<span class="fc" id="L26">    private int CODE_LENGTH;</span>
 
     public String generateToken(String code) {
-<span class="nc" id="L26">        Date now = new Date();</span>
-<span class="nc" id="L27">        Date expirationDate = new Date(now.getTime() + expiration);</span>
+<span class="nc" id="L29">        Date now = new Date();</span>
+<span class="nc" id="L30">        Date expirationDate = new Date(now.getTime() + expiration);</span>
 
-<span class="nc" id="L29">        return Jwts.builder()</span>
-<span class="nc" id="L30">                .setSubject(code)</span>
-<span class="nc" id="L31">                .setIssuedAt(now)</span>
-<span class="nc" id="L32">                .setExpiration(expirationDate)</span>
-<span class="nc" id="L33">                .signWith(SignatureAlgorithm.HS512, secret.getBytes())</span>
-<span class="nc" id="L34">                .compact();</span>
+<span class="nc" id="L32">        return Jwts.builder()</span>
+<span class="nc" id="L33">                .setSubject(code)</span>
+<span class="nc" id="L34">                .setIssuedAt(now)</span>
+<span class="nc" id="L35">                .setExpiration(expirationDate)</span>
+<span class="nc" id="L36">                .signWith(SignatureAlgorithm.HS512, secret.getBytes())</span>
+<span class="nc" id="L37">                .compact();</span>
     }
 
     public String generateRandomCode(){
-<span class="nc" id="L38">        Random random = new Random();</span>
-<span class="nc" id="L39">        StringBuilder code = new StringBuilder();</span>
+<span class="nc" id="L41">        Random random = new Random();</span>
+<span class="nc" id="L42">        StringBuilder code = new StringBuilder();</span>
 
-<span class="nc bnc" id="L41" title="All 2 branches missed.">        for (int i = 0; i &lt; CODE_LENGTH; i++) {</span>
-<span class="nc" id="L42">            int randomIndex = random.nextInt(CHARACTERS.length());</span>
-<span class="nc" id="L43">            code.append(CHARACTERS.charAt(randomIndex));</span>
+<span class="nc bnc" id="L44" title="All 2 branches missed.">        for (int i = 0; i &lt; CODE_LENGTH; i++) {</span>
+<span class="nc" id="L45">            int randomIndex = random.nextInt(CHARACTERS.length());</span>
+<span class="nc" id="L46">            code.append(CHARACTERS.charAt(randomIndex));</span>
         }
 
-<span class="nc" id="L46">        return code.toString();</span>
+<span class="nc" id="L49">        return code.toString();</span>
     }
 
     public boolean validateToken(String token) {
         try {
-<span class="nc" id="L51">            Jwts.parser()</span>
-<span class="nc" id="L52">                    .setSigningKey(secret.getBytes())</span>
-<span class="nc" id="L53">                    .parseClaimsJws(token);</span>
-<span class="nc" id="L54">            return true;</span>
-<span class="nc" id="L55">        } catch (Exception e) {</span>
-<span class="nc" id="L56">            return false;</span>
+<span class="nc" id="L54">            Jwts.parser()</span>
+<span class="nc" id="L55">                    .setSigningKey(secret.getBytes())</span>
+<span class="nc" id="L56">                    .parseClaimsJws(token);</span>
+<span class="nc" id="L57">            return true;</span>
+<span class="nc" id="L58">        } catch (Exception e) {</span>
+<span class="nc" id="L59">            return false;</span>
         }
     }
 }

@@ -50,7 +50,7 @@ export class PublicService {
 
   private handleError(error: Response) {
     console.log(error);
-    const msg = 'Erros status code: ' + error.status + 'status' + error.statusText;
+    const msg = 'Erros status code: ' + error.status + 'status: ' + error.statusText + "\n";
     return throwError(() => new Error(msg));
   }
 

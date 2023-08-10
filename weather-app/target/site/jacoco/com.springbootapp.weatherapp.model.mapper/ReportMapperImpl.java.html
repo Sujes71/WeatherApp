@@ -2,39 +2,39 @@
 
 import com.springbootapp.weatherapp.model.DayData;
 import com.springbootapp.weatherapp.model.Municipality;
-import com.springbootapp.weatherapp.model.dto.ReportDTO;
+import com.springbootapp.weatherapp.model.dto.ForecastDTO;
 import javax.annotation.processing.Generated;
 
 @Generated(
     value = &quot;org.mapstruct.ap.MappingProcessor&quot;,
-    date = &quot;2023-08-09T02:40:21+0200&quot;,
+    date = &quot;2023-08-10T22:50:46+0200&quot;,
     comments = &quot;version: 1.5.5.Final, compiler: javac, environment: Java 17.0.7 (Oracle Corporation)&quot;
 )
 <span class="fc" id="L13">public class ReportMapperImpl implements ReportMapper {</span>
 
     @Override
-    public void updateNameReportDTOFromMun(ReportDTO reportDTO, Municipality mun) {
+    public void updateNameForecastDTOFromMun(ForecastDTO forecastDTO, Municipality mun) {
 <span class="pc bpc" id="L17" title="1 of 2 branches missed.">        if ( mun == null ) {</span>
 <span class="nc" id="L18">            return;</span>
         }
 
-<span class="fc" id="L21">        reportDTO.setName( mun.getName() );</span>
+<span class="fc" id="L21">        forecastDTO.setName( mun.getName() );</span>
 <span class="fc" id="L22">    }</span>
 
     @Override
-    public ReportDTO dayToReportDTO(DayData dayData) {
+    public ForecastDTO dayToForecastDTO(DayData dayData) {
 <span class="pc bpc" id="L26" title="1 of 2 branches missed.">        if ( dayData == null ) {</span>
 <span class="nc" id="L27">            return null;</span>
         }
 
-<span class="fc" id="L30">        ReportDTO reportDTO = new ReportDTO();</span>
+<span class="fc" id="L30">        ForecastDTO forecastDTO = new ForecastDTO();</span>
 
-<span class="fc" id="L32">        reportDTO.setDate( dayData.getDate() );</span>
+<span class="fc" id="L32">        forecastDTO.setDate( dayData.getDate() );</span>
 
-<span class="fc bfc" id="L34" title="All 2 branches covered.">        reportDTO.setProbPrecipitations( dayData.getProbPrecipitations().size() &gt; 3 ? dayData.getProbPrecipitations().subList(3, dayData.getProbPrecipitations().size()) : dayData.getProbPrecipitations() );</span>
-<span class="fc" id="L35">        reportDTO.setTemAvg( (double) Math.round((dayData.getTemperature().getMax() + dayData.getTemperature().getMin()) / 2.0) );</span>
+<span class="fc bfc" id="L34" title="All 2 branches covered.">        forecastDTO.setProbPrecipitations( dayData.getProbPrecipitations().size() &gt; 3 ? dayData.getProbPrecipitations().subList(3, dayData.getProbPrecipitations().size()) : dayData.getProbPrecipitations() );</span>
+<span class="fc" id="L35">        forecastDTO.setAvg( (double) Math.round((dayData.getTemperature().getMax() + dayData.getTemperature().getMin()) / 2.0) );</span>
 
-<span class="fc" id="L37">        return reportDTO;</span>
+<span class="fc" id="L37">        return forecastDTO;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

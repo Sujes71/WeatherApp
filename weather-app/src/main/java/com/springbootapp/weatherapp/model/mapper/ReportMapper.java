@@ -13,11 +13,11 @@ public interface ReportMapper {
     ReportMapper INSTANCE = Mappers.getMapper(ReportMapper.class);
 
     @Mapping(target = "name", source = "name")
-    void updateNameReportDTOFromMun(@MappingTarget ForecastDTO forecastDTO, Municipality mun);
+    void updateNameForecastDTOFromMun(@MappingTarget ForecastDTO forecastDTO, Municipality mun);
 
     @Mapping(source = "date", target = "date")
     @Mapping(target = "probPrecipitations", expression = "java(dayData.getProbPrecipitations().size() > 3 ? dayData.getProbPrecipitations().subList(3, dayData.getProbPrecipitations().size()) : dayData.getProbPrecipitations())")
     @Mapping(target = "avg", expression = "java((double) Math.round((dayData.getTemperature().getMax() + dayData.getTemperature().getMin()) / 2.0))")
-    ForecastDTO dayToReportDTO(DayData dayData);
+    ForecastDTO dayToForecastDTO(DayData dayData);
 
 }

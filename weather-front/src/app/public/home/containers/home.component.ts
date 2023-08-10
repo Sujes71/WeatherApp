@@ -28,14 +28,32 @@ export class HomeComponent implements OnInit {
     constructor(private publicService: PublicService) {}
     
     ngOnInit(): void {
-      this.getInitialState();
-
-      const storedMunicipioId = localStorage.getItem('MunicipalityCache');
+      const checkBackend = () => {
+        return new Promise<void>((resolve, reject) => {
+          const intervalId = setInterval(() => {
+            fetch('/api/auth/code/random')
+              .then(response => {
+                if (response.status === 200) {
+                  clearInterval(intervalId);
+                  resolve();
+                }
+              })
+              .catch(error => {
+                console.log('Backend not yet ready...');
+              });
+          }, 1000);
+        });
+      };
       
-      if(storedMunicipioId != null){
-          this.getTomorrowForecast(storedMunicipioId);
-          this.checkImage = true;
-      } 
+      checkBackend().then(() => {
+          this.getInitialState();
+          const storedMunicipioId = localStorage.getItem('MunicipalityCache');
+      
+          if(storedMunicipioId != null){
+              this.getTomorrowForecast(storedMunicipioId);
+              this.checkImage = true;
+          }
+          }); 
     }
 
     getInitialState() {

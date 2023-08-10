@@ -1,8 +1,8 @@
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { Municipality } from '../core/models/municipality';
 import { Forecast } from '../core/models/forecast';
 import { PublicService } from './public.service';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
 describe('PublicService', () => {
   let service: PublicService;

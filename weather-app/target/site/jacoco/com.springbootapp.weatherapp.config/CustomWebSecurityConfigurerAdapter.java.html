@@ -3,18 +3,27 @@
 import com.springbootapp.weatherapp.service.webfilter.CustomFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.annotation.web.configurers.oauth2.server.resource.OAuth2ResourceServerConfigurer;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 @Configuration
-<span class="fc" id="L11">public class CustomWebSecurityConfigurerAdapter {</span>
+<span class="fc" id="L15">public class CustomWebSecurityConfigurerAdapter {</span>
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-<span class="fc" id="L15">        http.addFilterAfter(</span>
-                new CustomFilter(), BasicAuthenticationFilter.class);
-<span class="fc" id="L17">        return http.build();</span>
+<span class="fc" id="L19">        return http.addFilterAfter(</span>
+                        new CustomFilter(), BasicAuthenticationFilter.class)
+<span class="fc" id="L21">                .csrf(AbstractHttpConfigurer::disable)</span>
+<span class="fc" id="L22">                .authorizeHttpRequests(auth -&gt; auth</span>
+<span class="fc" id="L23">                        .requestMatchers(&quot;/**&quot;).permitAll()</span>
+<span class="fc" id="L24">                        .anyRequest().authenticated()</span>
+                )
+<span class="fc" id="L26">                .build();</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

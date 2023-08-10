@@ -31,4 +31,11 @@
     "strictTemplates": true,
     "exclude": ["cypress/global.d.ts"]
   },
+  "include": [
+    "src",
+    "node_modules/cypress"
+],
+"exclude": [
+    "node_modules/cypress"
+]
 }
