@@ -18,7 +18,7 @@
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "outputPath": "dist/weather-front",
-            "index": "src/index.html", 
+            "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
               "zone.js"
@@ -100,14 +100,64 @@
             ],
             "scripts": [],
             "include": [
-              "src/app/tests/**/*.spec.ts"
+              "src/app/public/**/*.spec.ts",
+              "src/app/public/home/**/*.spec.ts"
             ]
+          }
+        },
+        "cypress-run": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
+            "devServerTarget": "weather-front:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "weather-front:serve:production"
+            }
+          }
+        },
+        "cypress-open": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
+            "watch": true,
+            "headless": false
+          }
+        },
+        "ct": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
+            "devServerTarget": "weather-front:serve",
+            "watch": true,
+            "headless": false,
+            "testingType": "component"
+          },
+          "configurations": {
+            "development": {
+              "devServerTarget": "weather-front:serve:development"
+            }
+          }
+        },
+        "e2e": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
+            "devServerTarget": "weather-front:serve",
+            "watch": true,
+            "headless": false
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "weather-front:serve:production"
+            }
           }
         }
       }
     }
   },
   "cli": {
-    "analytics": false
+    "analytics": false,
+    "schematicCollections": [
+      "@cypress/schematic",
+      "@schematics/angular"
+    ]
   }
 }

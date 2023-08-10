@@ -1,10 +1,10 @@
 import { ProbPrecipitation } from './probPrecipitation';
 
-export interface Report {
+export interface Forecast {
   id: string;
   name: string;
   date: Date;
-  temAvg: number;
-  temUnit: string;
+  avg: number;
+  unit: string;
   probPrecipitations: ProbPrecipitation[];
 }

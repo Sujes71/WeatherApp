@@ -1,8 +1,7 @@
 package com.springbootapp.weatherapp.service.serviceimpl;
 
-import com.springbootapp.weatherapp.enums.TemperatureEnum;
 import com.springbootapp.weatherapp.model.*;
-import com.springbootapp.weatherapp.model.dto.ReportDTO;
+import com.springbootapp.weatherapp.model.dto.ForecastDTO;
 import com.springbootapp.weatherapp.model.dto.TemperatureDTO;
 import com.springbootapp.weatherapp.model.mapper.ReportMapper;
 import com.springbootapp.weatherapp.service.AemetService;
@@ -41,7 +40,7 @@ public class AemetServiceImpl implements AemetService {
     private HazelCastUtil hazelCastUtil;
 
     @Override
-    public List<Municipality> getMuns() {
+    public List<Municipality> getMunicipalities() {
         String url = String.format("%ss%s", master, apiKey);
         if (hazelCastUtil.getMunCache().containsKey(url)) {
             return hazelCastUtil.getMunCache().get(url);
@@ -63,11 +62,11 @@ public class AemetServiceImpl implements AemetService {
     }
 
     @Override
-    public ReportDTO getPredictMunTomorrow(String id) {
+    public ForecastDTO getMunTomorrowForecast(String id) {
         String url = String.format("%s%s%s", prediction, id.substring(2), apiKey);
         WData wData;
         DayData dayData = null;
-        ReportDTO reportDTO = null;
+        ForecastDTO forecastDTO = null;
         int tomorrow = LocalDate.now().plusDays(1).getDayOfMonth();
 
         if(isMunFound(id)){
@@ -81,11 +80,11 @@ public class AemetServiceImpl implements AemetService {
                 ).collect(Collectors.toList()).get(0);
             }catch (Exception e){}
 
-            reportDTO = ReportMapper.INSTANCE.dayToReportDTO(dayData);
-            ReportMapper.INSTANCE.updateNameReportDTOFromMun(reportDTO, this.getMunById(id));
+            forecastDTO = ReportMapper.INSTANCE.dayToReportDTO(dayData);
+            ReportMapper.INSTANCE.updateNameReportDTOFromMun(forecastDTO, this.getMunById(id));
         }
 
-        return reportDTO;
+        return forecastDTO;
     }
 
     @Override
@@ -102,7 +101,7 @@ public class AemetServiceImpl implements AemetService {
     }
 
     public boolean isMunFound(String id){
-        List<Municipality> muns = this.getMuns();
+        List<Municipality> muns = this.getMunicipalities();
         Municipality munFound = null;
         try{
             munFound = muns.stream()

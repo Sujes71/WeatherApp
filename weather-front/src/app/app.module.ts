@@ -5,43 +5,21 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
 
 import { AppComponent } from './app.component';
-import { WeatherReportComponent } from './components/report/weatherReport.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
-import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatIconModule } from '@angular/material/icon';
-import { MatInputModule } from '@angular/material/input';
-import { MatSelectModule } from '@angular/material/select';
-
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { JwtInterceptor } from './interceptors/jwt.interceptor';
-
-const routes: Routes = [
-];
+import { CoreModule } from './core/core.module';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    WeatherReportComponent
+    AppComponent
   ],
   imports: [
-    BrowserModule,
-    HttpClientModule,
-    RouterModule.forRoot(routes),
-    BrowserAnimationsModule,
-    MatAutocompleteModule,
-    ReactiveFormsModule,
-    MatIconModule,
-    MatInputModule,
-    MatFormFieldModule,
-    MatSelectModule,
-    FormsModule,
+    CoreModule,
+    AppRoutingModule,
+    BrowserAnimationsModule
   ],
-  providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }
-  ],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

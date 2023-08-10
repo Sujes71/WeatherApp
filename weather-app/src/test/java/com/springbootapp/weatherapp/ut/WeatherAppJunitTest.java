@@ -6,7 +6,7 @@ import com.springbootapp.weatherapp.model.DayData;
 import com.springbootapp.weatherapp.model.Municipality;
 import com.springbootapp.weatherapp.model.ProbPrecipitation;
 import com.springbootapp.weatherapp.model.Temperature;
-import com.springbootapp.weatherapp.model.dto.ReportDTO;
+import com.springbootapp.weatherapp.model.dto.ForecastDTO;
 import com.springbootapp.weatherapp.model.mapper.ReportMapper;
 import com.springbootapp.weatherapp.service.component.HazelCastUtil;
 import com.springbootapp.weatherapp.service.serviceimpl.AemetServiceImpl;
@@ -94,7 +94,7 @@ class WeatherAppJunitTest {
 				eq(Municipality[].class)))
 				.thenReturn(responseEntity);
 
-		List<Municipality> municipalities = this.aemetService.getMuns();
+		List<Municipality> municipalities = this.aemetService.getMunicipalities();
 		assertTrue("Mismo tamaño", municipalities.size() == 2);
 	}
 
@@ -142,19 +142,19 @@ class WeatherAppJunitTest {
 		dayData.setProbPrecipitations(probPrecipitationList);
 		dayData.setTemperature(temperature);
 
-		ReportDTO reportDTO = ReportMapper.INSTANCE.dayToReportDTO(dayData);
-		ReportMapper.INSTANCE.updateNameReportDTOFromMun(reportDTO, mun);
+		ForecastDTO forecastDTO = ReportMapper.INSTANCE.dayToReportDTO(dayData);
+		ReportMapper.INSTANCE.updateNameReportDTOFromMun(forecastDTO, mun);
 
-		assertEquals("Name Mun" ,reportDTO.getName(), mun.getName());
-		assertEquals("Date", reportDTO.getDate(), dayData.getDate());
-		assertEquals("Unit", reportDTO.getTemUnit(), "G_CEL");
-		assertEquals("Avg", reportDTO.getTemAvg(), 25.0);
+		assertEquals("Name Mun" , forecastDTO.getName(), mun.getName());
+		assertEquals("Date", forecastDTO.getDate(), dayData.getDate());
+		assertEquals("Unit", forecastDTO.getUnit(), "G_CEL");
+		assertEquals("Avg", forecastDTO.getAvg(), 25.0);
 
-        assertEquals("Nº elementos probPrepitation", 1, reportDTO.getProbPrecipitations().size());
+        assertEquals("Nº elementos probPrepitation", 1, forecastDTO.getProbPrecipitations().size());
 		dayData.setProbPrecipitations(probPrecipitationList2);
 
-		reportDTO = ReportMapper.INSTANCE.dayToReportDTO(dayData);
-		assertEquals("ProbPre", reportDTO.getProbPrecipitations(), dayData.getProbPrecipitations());
+		forecastDTO = ReportMapper.INSTANCE.dayToReportDTO(dayData);
+		assertEquals("ProbPre", forecastDTO.getProbPrecipitations(), dayData.getProbPrecipitations());
 
 	}
 

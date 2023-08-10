@@ -1,19 +1,19 @@
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
-import { Municipality } from '../models/municipality';
-import { Report } from '../models/report';
-import { WeatherReportService } from '../services/report/weatherReport.service';
+import { Municipality } from '../core/models/municipality';
+import { Forecast } from '../core/models/forecast';
+import { PublicService } from './public.service';
 
-describe('WeatherReportService', () => {
-  let service: WeatherReportService;
+describe('PublicService', () => {
+  let service: PublicService;
   let httpMock: HttpTestingController;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
-      providers: [WeatherReportService],
+      providers: [PublicService],
     });
-    service = TestBed.inject(WeatherReportService);
+    service = TestBed.inject(PublicService);
     httpMock = TestBed.inject(HttpTestingController);
   });
 
@@ -22,12 +22,12 @@ describe('WeatherReportService', () => {
   });
 
   it('should call getMunPredictionTomorrow, getMunPredictionTomorrow()', () => {
-    const dummyReport: Report = {
+    const dummyForecast: Forecast = {
         id: "id44001",
         name: "Ababuj",
         date: new Date("2023-08-05T00:00:00.000+00:00"),
-        temAvg: 16.5,
-        temUnit: "G_CEL",
+        avg: 16.5,
+        unit: "G_CEL",
         probPrecipitations: [
             { value: 0, period: "00-06" },
             { value: 0, period: "06-12" },
@@ -37,17 +37,17 @@ describe('WeatherReportService', () => {
     };
     const munId = "id44001";
 
-    service.getMunPredictionTomorrow(munId).subscribe((report) => {
-      expect(report).toEqual(dummyReport);
+    service.getMunTomorrowForecast(munId).subscribe((forecast) => {
+      expect(forecast).toEqual(dummyForecast);
     });
 
     const req = httpMock.expectOne(`/api/aemet/mun/prediction/tomorrow/${munId}`);
     expect(req.request.method).toBe('GET');
-    req.flush(dummyReport);
+    req.flush(dummyForecast);
   });
 
   it('should call getMuns, getMuns()', () => {
-    const dummyReport: Municipality[] = [
+    const dummyMunicipalities: Municipality[] = [
     {
       name: "Ababuj", id:"id44001"
     },
@@ -56,24 +56,24 @@ describe('WeatherReportService', () => {
     }
 ];
 
-    service.getMuns().subscribe((report) => {
-      expect(report).toEqual(dummyReport);
+    service.getMunicipalities().subscribe((mun) => {
+      expect(mun).toEqual(dummyMunicipalities);
     });
 
     const req = httpMock.expectOne(`/api/aemet/mun/all`);
     expect(req.request.method).toBe('GET');
-    req.flush(dummyReport);
+    req.flush(dummyMunicipalities);
   });
 
   it('should call getToken and simulate response', () => {
-    const dummyReport: string = 'testingCodeRandomForGenerateJWT';
+    const dummyCode: string = 'testingCodeRandomForGenerateJWT';
   
-    service.getToken(dummyReport).subscribe((report) => {
-      expect(report).toBeDefined();
-      expect(typeof report).toBe('string');
+    service.getToken(dummyCode).subscribe((code) => {
+      expect(code).toBeDefined();
+      expect(typeof code).toBe('string');
     });
   
-    const req = httpMock.expectOne(`/api/auth/token/${dummyReport}`);
+    const req = httpMock.expectOne(`/api/auth/token/${dummyCode}`);
     expect(req.request.method).toBe('GET');
 
     req.flush({ token: 'dummyTokenValue' });

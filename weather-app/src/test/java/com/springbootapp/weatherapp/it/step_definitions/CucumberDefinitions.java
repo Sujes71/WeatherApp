@@ -97,7 +97,7 @@ public class CucumberDefinitions {
 
         when(mockImap.get(anyString())).thenReturn(munsI);
 
-        List<Municipality> muns = this.aemetService.getMuns();
+        List<Municipality> muns = this.aemetService.getMunicipalities();
         assertEquals("Marbella", muns.get(1).getName());
         assertEquals(2, response.getBody().length);
     }

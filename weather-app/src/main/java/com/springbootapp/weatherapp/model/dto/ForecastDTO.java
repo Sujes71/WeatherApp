@@ -7,15 +7,15 @@ import java.util.Date;
 import java.util.List;
 
 @Data
-public class ReportDTO {
+public class ForecastDTO {
 
     private String name;
     private Date date;
-    private Double temAvg;
-    private String temUnit;
+    private Double avg;
+    private String unit;
     private List<ProbPrecipitation> probPrecipitations;
 
-    public ReportDTO (){
-        this.temUnit = "G_CEL";
+    public ForecastDTO(){
+        this.unit = "G_CEL";
     }
 }

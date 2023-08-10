@@ -1,19 +1,15 @@
 import { NgModule } from '@angular/core';
-import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatIconModule } from '@angular/material/icon';
-import { MatInputModule } from '@angular/material/input';
-import { MatSelectModule } from '@angular/material/select';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
+import { NotFoundComponent } from './core/shared/components/not-found/not-found.component';
 
+const routes: Routes = [
+  { path: '', loadChildren: () => import("./public/public.module").then((m) => m.PublicModule) },
+  { path: '**', component: NotFoundComponent }
+];
 
 @NgModule({
   imports: [
-    MatAutocompleteModule, 
-    MatInputModule, 
-    MatFormFieldModule, 
-    MatSelectModule, 
-    MatIconModule
+    RouterModule.forRoot(routes, { useHash : true})
   ],
   exports: [RouterModule]
 })

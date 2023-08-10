@@ -1,0 +1,54 @@
+<div class="background">
+  <div class="form-container">
+    <div class="input-select">
+      <div class="input-group">
+        <input
+          data-cy="inputName"
+          type="text"
+          #inputName
+          class="form-control"
+          placeholder="Buscar municipio ..."
+          [formControl]="formControl"
+          [matAutocomplete]="auto"
+        />
+        <div class="input-group-append">
+          <span class="input-group-text"><i class="material-icons">search</i></span>
+        </div>
+      </div>
+      <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onMunSelected($event)">
+        <mat-option data-cy="mat-option" *ngFor="let mun of filteredMunicipalities | async" [value]="mun.name">
+          {{ mun.name }}
+        </mat-option>
+      </mat-autocomplete>
+    </div>
+    <select data-cy="select" class="form-control" (change)="changeTemUnit($event)">
+      <option [value]="'G_CEL'" [selected]="unitSelected === 'G_CEL'">ºC</option>
+      <option [value]="'G_FAH'" [selected]="unitSelected === 'G_FAH'">ºF</option>
+    </select>
+  </div>
+  <div class="container mt-4">
+    <div data-cy="forecast" class="fullDataContainer d-flex justify-content-center align-items-center" *ngIf="forecast">
+      <div class="dataContainer text-center">
+        <h1 class="name text-xl">{{ forecast.name }}</h1>
+        <h2 class="date text-lg">{{ formattedDate }}</h2>
+        <h1 class="temp text-xxl">{{ showedTemp }}</h1>
+      </div>
+    </div>
+  </div>
+  <div class="center-container">
+    <table class="table">
+      <tbody>
+        <tr>
+          <ng-container *ngFor="let prob of forecast.probPrecipitations">
+            <td data-cy="value" class="value"><b>{{ prob.value }}%</b></td>
+          </ng-container>
+        </tr>
+        <tr>
+          <ng-container *ngFor="let prob of forecast.probPrecipitations">
+            <td class="period"><b>{{ prob.period }}</b></td>
+          </ng-container>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

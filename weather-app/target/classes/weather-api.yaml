@@ -81,10 +81,10 @@ components:
         date:
           type: string
           format: date
-        temAvg:
+        avg:
           type: number
           format: double
-        temUnit:
+        unit:
           type: string
         probPrecipitations:
           type: array
