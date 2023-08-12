@@ -140,15 +140,15 @@ class WeatherAppJunitTest {
 		probPrecipitationList2.add(probPrecipitation4);
 
 		dayData.setProbPrecipitations(probPrecipitationList);
-		dayData.setTemperature(temperature);
+		dayData.setTemp(temperature);
 
 		ForecastDTO forecastDTO = ReportMapper.INSTANCE.dayToForecastDTO(dayData);
-		ReportMapper.INSTANCE.updateNameForecastDTOFromMun(forecastDTO, mun);
+		ReportMapper.INSTANCE.updateForecastDTOFromMun(forecastDTO, mun);
 
-		assertEquals("Name Mun" , forecastDTO.getName(), mun.getName());
+		assertEquals("Name Mun" , forecastDTO.getMunicipality().getName(), mun.getName());
 		assertEquals("Date", forecastDTO.getDate(), dayData.getDate());
-		assertEquals("Unit", forecastDTO.getUnit(), "G_CEL");
-		assertEquals("Avg", forecastDTO.getAvg(), 25.0);
+		assertEquals("Unit", forecastDTO.getTemperature().getUnit(), "G_CEL");
+		assertEquals("Avg", (double)forecastDTO.getTemperature().getAvg(), 25.0);
 
         assertEquals("Nº elementos probPrepitation", 1, forecastDTO.getProbPrecipitations().size());
 		dayData.setProbPrecipitations(probPrecipitationList2);

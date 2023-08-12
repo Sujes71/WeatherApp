@@ -100,8 +100,7 @@
             ],
             "scripts": [],
             "include": [
-              "src/app/public/**/*.spec.ts",
-              "src/app/public/home/**/*.spec.ts"
+              "src/app/**/*.spec.ts"
             ]
           }
         },

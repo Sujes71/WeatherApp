@@ -37,18 +37,6 @@ public class JwtTokenUtil {
                 .compact();
     }
 
-    public String generateRandomCode(){
-        Random random = new Random();
-        StringBuilder code = new StringBuilder();
-
-        for (int i = 0; i < CODE_LENGTH; i++) {
-            int randomIndex = random.nextInt(CHARACTERS.length());
-            code.append(CHARACTERS.charAt(randomIndex));
-        }
-
-        return code.toString();
-    }
-
     public boolean validateToken(String token) {
         try {
             Jwts.parser()

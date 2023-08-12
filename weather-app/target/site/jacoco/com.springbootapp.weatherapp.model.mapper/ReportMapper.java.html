@@ -12,13 +12,19 @@ import org.mapstruct.factory.Mappers;
 public interface ReportMapper {
 <span class="fc" id="L13">    ReportMapper INSTANCE = Mappers.getMapper(ReportMapper.class);</span>
 
-    @Mapping(target = &quot;name&quot;, source = &quot;name&quot;)
-    void updateNameForecastDTOFromMun(@MappingTarget ForecastDTO forecastDTO, Municipality mun);
+    @Mapping(target = &quot;municipality&quot;, source = &quot;mun&quot;)
+    void updateForecastDTOFromMun(@MappingTarget ForecastDTO forecastDTO, Municipality mun);
+
 
     @Mapping(source = &quot;date&quot;, target = &quot;date&quot;)
     @Mapping(target = &quot;probPrecipitations&quot;, expression = &quot;java(dayData.getProbPrecipitations().size() &gt; 3 ? dayData.getProbPrecipitations().subList(3, dayData.getProbPrecipitations().size()) : dayData.getProbPrecipitations())&quot;)
-    @Mapping(target = &quot;avg&quot;, expression = &quot;java((double) Math.round((dayData.getTemperature().getMax() + dayData.getTemperature().getMin()) / 2.0))&quot;)
+    @Mapping(target = &quot;temperature.avg&quot;, expression = &quot;java(Float.valueOf(Math.round((dayData.getTemp().getMax() + dayData.getTemp().getMin()) / 2.0)))&quot;)
+    @Mapping(target = &quot;temperature.unit&quot;, expression = &quot;java(setUnit())&quot;)
     ForecastDTO dayToForecastDTO(DayData dayData);
+
+    default String setUnit() {
+<span class="fc" id="L26">        return &quot;G_CEL&quot;;</span>
+    }
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

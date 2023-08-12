@@ -12,12 +12,18 @@ import org.mapstruct.factory.Mappers;
 public interface ReportMapper {
     ReportMapper INSTANCE = Mappers.getMapper(ReportMapper.class);
 
-    @Mapping(target = "name", source = "name")
-    void updateNameForecastDTOFromMun(@MappingTarget ForecastDTO forecastDTO, Municipality mun);
+    @Mapping(target = "municipality", source = "mun")
+    void updateForecastDTOFromMun(@MappingTarget ForecastDTO forecastDTO, Municipality mun);
+
 
     @Mapping(source = "date", target = "date")
     @Mapping(target = "probPrecipitations", expression = "java(dayData.getProbPrecipitations().size() > 3 ? dayData.getProbPrecipitations().subList(3, dayData.getProbPrecipitations().size()) : dayData.getProbPrecipitations())")
-    @Mapping(target = "avg", expression = "java((double) Math.round((dayData.getTemperature().getMax() + dayData.getTemperature().getMin()) / 2.0))")
+    @Mapping(target = "temperature.avg", expression = "java(Float.valueOf(Math.round((dayData.getTemp().getMax() + dayData.getTemp().getMin()) / 2.0)))")
+    @Mapping(target = "temperature.unit", expression = "java(setUnit())")
     ForecastDTO dayToForecastDTO(DayData dayData);
+
+    default String setUnit() {
+        return "G_CEL";
+    }
 
 }

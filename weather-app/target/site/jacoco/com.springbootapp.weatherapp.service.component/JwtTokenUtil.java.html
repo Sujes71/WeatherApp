@@ -37,26 +37,14 @@ public class JwtTokenUtil {
 <span class="nc" id="L37">                .compact();</span>
     }
 
-    public String generateRandomCode(){
-<span class="nc" id="L41">        Random random = new Random();</span>
-<span class="nc" id="L42">        StringBuilder code = new StringBuilder();</span>
-
-<span class="nc bnc" id="L44" title="All 2 branches missed.">        for (int i = 0; i &lt; CODE_LENGTH; i++) {</span>
-<span class="nc" id="L45">            int randomIndex = random.nextInt(CHARACTERS.length());</span>
-<span class="nc" id="L46">            code.append(CHARACTERS.charAt(randomIndex));</span>
-        }
-
-<span class="nc" id="L49">        return code.toString();</span>
-    }
-
     public boolean validateToken(String token) {
         try {
-<span class="nc" id="L54">            Jwts.parser()</span>
-<span class="nc" id="L55">                    .setSigningKey(secret.getBytes())</span>
-<span class="nc" id="L56">                    .parseClaimsJws(token);</span>
-<span class="nc" id="L57">            return true;</span>
-<span class="nc" id="L58">        } catch (Exception e) {</span>
-<span class="nc" id="L59">            return false;</span>
+<span class="nc" id="L42">            Jwts.parser()</span>
+<span class="nc" id="L43">                    .setSigningKey(secret.getBytes())</span>
+<span class="nc" id="L44">                    .parseClaimsJws(token);</span>
+<span class="nc" id="L45">            return true;</span>
+<span class="nc" id="L46">        } catch (Exception e) {</span>
+<span class="nc" id="L47">            return false;</span>
         }
     }
 }

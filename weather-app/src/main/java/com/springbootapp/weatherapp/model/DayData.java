@@ -11,7 +11,7 @@ public class DayData {
     @JsonAlias("fecha")
     private Date date;
     @JsonAlias("temperatura")
-    private Temperature temperature;
+    private Temperature temp;
     @JsonAlias("probPrecipitacion")
     private List<ProbPrecipitation> probPrecipitations;
 }

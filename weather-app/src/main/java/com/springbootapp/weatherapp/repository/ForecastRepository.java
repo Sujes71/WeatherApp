@@ -10,10 +10,9 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-@ConditionalOnProperty(name = "spring.profiles.active", havingValue = "dev")
 @Profile("prod")
 public interface ForecastRepository extends JpaRepository<ForecastEntity, Long> {
 
-    @Query("SELECT forecast FROM CT_FORECAST forecast WHERE forecast.name = ?1 order by forecast.id")
-    List<ForecastEntity> findByName(String name);
+    @Query("SELECT forecast FROM ForecastEntity forecast WHERE forecast.municipality = ?1 order by forecast.id")
+    List<ForecastEntity> findByMunicipality(String name);
 }

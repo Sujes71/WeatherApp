@@ -1,4 +1,4 @@
 export interface Municipality {
-    name: string;
     id: string;
+    name: string;
 }

@@ -3,6 +3,7 @@ C:\Users\destr\IdeaProjects\weather-app\src\main\java\com\springbootapp\weathera
 C:\Users\destr\IdeaProjects\weather-app\src\main\java\com\springbootapp\weatherapp\model\WData.java
 C:\Users\destr\IdeaProjects\weather-app\src\main\java\com\springbootapp\weatherapp\config\WebMvcConfig.java
 C:\Users\destr\IdeaProjects\weather-app\src\main\java\com\springbootapp\weatherapp\model\ProbPrecipitation.java
+C:\Users\destr\IdeaProjects\weather-app\src\main\java\com\springbootapp\weatherapp\repository\MunicipalityRepository.java
 C:\Users\destr\IdeaProjects\weather-app\src\main\java\com\springbootapp\weatherapp\config\RestTemplateConfig.java
 C:\Users\destr\IdeaProjects\weather-app\src\main\java\com\springbootapp\weatherapp\model\Temperature.java
 C:\Users\destr\IdeaProjects\weather-app\src\main\java\com\springbootapp\weatherapp\model\Municipality.java
@@ -12,7 +13,9 @@ C:\Users\destr\IdeaProjects\weather-app\src\main\java\com\springbootapp\weathera
 C:\Users\destr\IdeaProjects\weather-app\src\main\java\com\springbootapp\weatherapp\service\component\JwtTokenUtil.java
 C:\Users\destr\IdeaProjects\weather-app\src\main\java\com\springbootapp\weatherapp\model\entity\ForecastEntity.java
 C:\Users\destr\IdeaProjects\weather-app\src\main\java\com\springbootapp\weatherapp\model\WReport.java
+C:\Users\destr\IdeaProjects\weather-app\src\main\java\com\springbootapp\weatherapp\model\entity\TemperatureEntity.java
 C:\Users\destr\IdeaProjects\weather-app\src\main\java\com\springbootapp\weatherapp\WeatherAppApplication.java
+C:\Users\destr\IdeaProjects\weather-app\src\main\java\com\springbootapp\weatherapp\repository\ProbPrecipitationRepository.java
 C:\Users\destr\IdeaProjects\weather-app\src\main\java\com\springbootapp\weatherapp\interceptor\JwtInterceptor.java
 C:\Users\destr\IdeaProjects\weather-app\src\main\java\com\springbootapp\weatherapp\service\webfilter\CustomFilter.java
 C:\Users\destr\IdeaProjects\weather-app\src\main\java\com\springbootapp\weatherapp\service\AemetService.java
@@ -22,6 +25,7 @@ C:\Users\destr\IdeaProjects\weather-app\src\main\java\com\springbootapp\weathera
 C:\Users\destr\IdeaProjects\weather-app\src\main\java\com\springbootapp\weatherapp\model\dto\TemperatureDTO.java
 C:\Users\destr\IdeaProjects\weather-app\src\main\java\com\springbootapp\weatherapp\repository\ForecastRepository.java
 C:\Users\destr\IdeaProjects\weather-app\src\main\java\com\springbootapp\weatherapp\controller\ForecastController.java
+C:\Users\destr\IdeaProjects\weather-app\src\main\java\com\springbootapp\weatherapp\model\entity\MunicipalityEntity.java
 C:\Users\destr\IdeaProjects\weather-app\src\main\java\com\springbootapp\weatherapp\controller\AemetController.java
 C:\Users\destr\IdeaProjects\weather-app\src\main\java\com\springbootapp\weatherapp\enums\TemperatureEnum.java
 C:\Users\destr\IdeaProjects\weather-app\src\main\java\com\springbootapp\weatherapp\config\CustomWebSecurityConfigurerAdapter.java

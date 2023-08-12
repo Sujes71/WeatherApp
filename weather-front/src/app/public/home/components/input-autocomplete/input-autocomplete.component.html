@@ -1,0 +1,21 @@
+      <div class="input-select">
+        <div class="input-group">
+          <input
+            data-cy="inputName"
+            type="text"
+            #inputName
+            class="form-control"
+            placeholder="Buscar municipio ..."
+            [formControl]="formControl"
+            [matAutocomplete]="auto"
+          />
+          <div class="input-group-append">
+            <span class="input-group-text"><i class="material-icons">search</i></span>
+          </div>
+        </div>
+        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onMunSelected($event)">
+          <mat-option data-cy="mat-option" *ngFor="let mun of filteredMunicipalities | async" [value]="mun.name">
+            {{ mun.name }}
+          </mat-option>
+        </mat-autocomplete>
+      </div>

@@ -25,13 +25,13 @@ describe('WeatherApp Test', () => {
 
     let lastAvg: number;
 
-    cy.get('[data-cy="forecast"] .temp').invoke("text").then(avg => {
+    cy.get('[data-cy="forecast"] .temp').invoke('text').then(avg => {
       lastAvg = parseInt(avg); 
     })
     cy.get('[data-cy=select]').select(0);
     cy.wait(2000)
-    cy.get('[data-cy="forecast"] .temp').contains("ºC")
-    cy.get('[data-cy="forecast"] .temp').invoke("text").then(avg => {
+    cy.get('[data-cy="forecast"] .temp').contains('ºC')
+    cy.get('[data-cy="forecast"] .temp').invoke('text').then(avg => {
       const newAvg: number = parseInt(avg);
 
       expect(lastAvg).to.be.greaterThan(newAvg);

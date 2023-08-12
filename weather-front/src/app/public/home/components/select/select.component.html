@@ -1,0 +1,6 @@
+<div class="select-grades">
+    <select data-cy="select" class="form-control" (change)="changeTemUnit($event)" [disabled]="forecast === null">
+        <option [value]="'G_CEL'" [selected]="unitSelected === 'G_CEL'">ºC</option>
+        <option [value]="'G_FAH'" [selected]="unitSelected === 'G_FAH'">ºF</option>
+      </select>
+</div>

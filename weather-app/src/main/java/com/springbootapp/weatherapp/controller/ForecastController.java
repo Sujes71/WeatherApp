@@ -4,11 +4,15 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nimbusds.jose.shaded.gson.JsonObject;
 import com.springbootapp.weatherapp.model.entity.ForecastEntity;
+import com.springbootapp.weatherapp.model.entity.MunicipalityEntity;
 import com.springbootapp.weatherapp.repository.ForecastRepository;
+import com.springbootapp.weatherapp.repository.MunicipalityRepository;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,29 +25,29 @@ public class ForecastController {
 
     @Autowired
     ForecastRepository forecastRepository;
+    @Autowired
+    MunicipalityRepository municipalityRepository;
 
-    @GetMapping("/get/all")
+    @GetMapping("/all")
     public ResponseEntity<List<ForecastEntity>> getTutorialById() {
         List<ForecastEntity> forecastEntityData = forecastRepository.findAll(Sort.by(Sort.Order.asc("id")));
 
         if (!forecastEntityData.isEmpty()) {
             return new ResponseEntity<>(forecastEntityData, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @PostMapping("/add")
-    public ResponseEntity<ForecastEntity> addForecast(@RequestBody JsonObject json) {
-        ObjectMapper objectMapper = new ObjectMapper();
-
+    @PostMapping(path = "/add", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ForecastEntity> addForecast(@Valid @RequestBody ForecastEntity forecastEntity) {
+        MunicipalityEntity municipality = this.municipalityRepository.findByName(forecastEntity.getMunicipality());
+        if (municipality == null) {
+            municipalityRepository.save(new MunicipalityEntity(forecastEntity.getMunicipality()));
+        }
         try {
-            ForecastEntity forecastEntityData = objectMapper.readValue(json.toString(), ForecastEntity.class);
-
-            forecastRepository.save(forecastEntityData);
-            return new ResponseEntity<>(forecastEntityData, HttpStatus.OK);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
+            forecastRepository.save(forecastEntity);
+            return new ResponseEntity<>(forecastEntity, HttpStatus.OK);
+        }catch(Exception e){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
@@ -54,14 +58,13 @@ public class ForecastController {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/get/byName/{name}")
+    @GetMapping("/{name}")
     public ResponseEntity<List<ForecastEntity>> getByName(@PathVariable String name) {
-        List<ForecastEntity> forecastEntityData = forecastRepository.findByName(name);
+        List<ForecastEntity> forecastEntityData = forecastRepository.findByMunicipality(name);
 
         if (!forecastEntityData.isEmpty()) {
             return new ResponseEntity<>(forecastEntityData, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 }

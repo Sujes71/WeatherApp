@@ -81,7 +81,7 @@ public class AemetServiceImpl implements AemetService {
             }catch (Exception e){}
 
             forecastDTO = ReportMapper.INSTANCE.dayToForecastDTO(dayData);
-            ReportMapper.INSTANCE.updateNameForecastDTOFromMun(forecastDTO, this.getMunById(id));
+            ReportMapper.INSTANCE.updateForecastDTOFromMun(forecastDTO, this.getMunById(id));
         }
 
         return forecastDTO;

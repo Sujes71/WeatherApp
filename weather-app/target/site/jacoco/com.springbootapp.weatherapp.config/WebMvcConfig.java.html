@@ -15,7 +15,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 <span class="fc" id="L15">        registry.addInterceptor(jwtInterceptor)</span>
 <span class="fc" id="L16">                .addPathPatterns(&quot;/aemet/**&quot;)</span>
 <span class="fc" id="L17">                .addPathPatterns(&quot;/api/aemet/**&quot;)</span>
-<span class="fc" id="L18">                .order(1);</span>
-<span class="fc" id="L19">    }</span>
+<span class="fc" id="L18">                .addPathPatterns(&quot;/forecast/**&quot;)</span>
+<span class="fc" id="L19">                .addPathPatterns(&quot;/api/forecast/**&quot;)</span>
+<span class="fc" id="L20">                .order(1);</span>
+<span class="fc" id="L21">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

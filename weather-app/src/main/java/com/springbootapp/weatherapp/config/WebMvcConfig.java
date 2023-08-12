@@ -15,6 +15,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
         registry.addInterceptor(jwtInterceptor)
                 .addPathPatterns("/aemet/**")
                 .addPathPatterns("/api/aemet/**")
+                .addPathPatterns("/forecast/**")
+                .addPathPatterns("/api/forecast/**")
                 .order(1);
     }
 }

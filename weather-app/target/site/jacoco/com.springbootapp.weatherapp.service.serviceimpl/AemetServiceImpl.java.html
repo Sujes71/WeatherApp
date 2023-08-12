@@ -81,7 +81,7 @@ import static com.springbootapp.weatherapp.enums.TemperatureEnum.TEMPERATURE_FAH
 <span class="nc" id="L81">            }catch (Exception e){}</span>
 
 <span class="nc" id="L83">            forecastDTO = ReportMapper.INSTANCE.dayToForecastDTO(dayData);</span>
-<span class="nc" id="L84">            ReportMapper.INSTANCE.updateNameForecastDTOFromMun(forecastDTO, this.getMunById(id));</span>
+<span class="nc" id="L84">            ReportMapper.INSTANCE.updateForecastDTOFromMun(forecastDTO, this.getMunById(id));</span>
         }
 
 <span class="nc" id="L87">        return forecastDTO;</span>

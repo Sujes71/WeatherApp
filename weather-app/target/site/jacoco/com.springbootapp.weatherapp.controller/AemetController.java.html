@@ -34,46 +34,42 @@ import java.util.List;
 
 <span class="nc bnc" id="L35" title="All 2 branches missed.">        if (!muns.isEmpty()) {</span>
 <span class="nc" id="L36">            return ResponseEntity.ok(muns);</span>
-        } else {
-<span class="nc" id="L38">            return ResponseEntity.notFound().build();</span>
         }
+<span class="nc" id="L38">        return ResponseEntity.notFound().build();</span>
     }
 
     @Operation(summary = &quot;Get the municipality by id&quot;, description = &quot;Get the municipality by id&quot;)
     @SecurityRequirement(name = &quot;Bearer Authentication&quot;)
     @GetMapping(&quot;/{id}&quot;)
     public ResponseEntity&lt;Municipality&gt; getMunById(@PathVariable String id) {
-<span class="nc" id="L46">        Municipality mun = this.aemetService.getMunById(id);</span>
+<span class="nc" id="L45">        Municipality mun = this.aemetService.getMunById(id);</span>
 
-<span class="nc bnc" id="L48" title="All 2 branches missed.">        if (mun != null) {</span>
-<span class="nc" id="L49">            return ResponseEntity.ok(mun);</span>
-        } else {
-<span class="nc" id="L51">            return ResponseEntity.notFound().build();</span>
+<span class="nc bnc" id="L47" title="All 2 branches missed.">        if (mun != null) {</span>
+<span class="nc" id="L48">            return ResponseEntity.ok(mun);</span>
         }
+<span class="nc" id="L50">        return ResponseEntity.notFound().build();</span>
     }
     @Operation(summary = &quot;Get the weather forecast for tomorrow&quot;, description = &quot;Get the weather forecast for tomorrow&quot;)
     @SecurityRequirement(name = &quot;Bearer Authentication&quot;)
     @GetMapping(&quot;/prediction/tomorrow/{id}&quot;)
     public ResponseEntity&lt;ForecastDTO&gt; getMunTomorrowForecast(@PathVariable String id) {
-<span class="nc" id="L58">        ForecastDTO forecastDTO = this.aemetService.getMunTomorrowForecast(id);</span>
+<span class="nc" id="L56">        ForecastDTO forecastDTO = this.aemetService.getMunTomorrowForecast(id);</span>
 
-<span class="nc bnc" id="L60" title="All 2 branches missed.">        if (forecastDTO != null) {</span>
-<span class="nc" id="L61">            return ResponseEntity.ok(forecastDTO);</span>
-        } else {
-<span class="nc" id="L63">            return ResponseEntity.notFound().build();</span>
+<span class="nc bnc" id="L58" title="All 2 branches missed.">        if (forecastDTO != null) {</span>
+<span class="nc" id="L59">            return ResponseEntity.ok(forecastDTO);</span>
         }
+<span class="nc" id="L61">        return ResponseEntity.notFound().build();</span>
     }
 
     @GetMapping(&quot;/conversion/{avg}/{unit}&quot;)
     @Hidden
     public ResponseEntity&lt;TemperatureDTO&gt; getConversion(@PathVariable Float avg, @PathVariable String unit) {
-<span class="nc" id="L70">        TemperatureDTO temperatureDTO = this.aemetService.getConversion(avg, unit);</span>
+<span class="nc" id="L67">        TemperatureDTO temperatureDTO = this.aemetService.getConversion(avg, unit);</span>
 
-<span class="nc bnc" id="L72" title="All 2 branches missed.">        if (temperatureDTO != null) {</span>
-<span class="nc" id="L73">            return ResponseEntity.ok(temperatureDTO);</span>
-        } else {
-<span class="nc" id="L75">            return ResponseEntity.notFound().build();</span>
+<span class="nc bnc" id="L69" title="All 2 branches missed.">        if (temperatureDTO != null) {</span>
+<span class="nc" id="L70">            return ResponseEntity.ok(temperatureDTO);</span>
         }
+<span class="nc" id="L72">        return ResponseEntity.notFound().build();</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

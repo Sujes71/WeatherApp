@@ -1,10 +1,17 @@
 import { ProbPrecipitation } from './probPrecipitation';
+import { Municipality } from './municipality';
+import { Temperature } from './temperature';
 
 export interface Forecast {
-  id: string;
-  name: string;
+  municipality: Municipality;
   date: Date;
-  avg: number;
-  unit: string;
+  temperature: Temperature;
+  probPrecipitations: ProbPrecipitation[];
+}
+
+export interface ForecastDTO {
+  municipality: String;
+  date: Date;
+  temperature: Temperature;
   probPrecipitations: ProbPrecipitation[];
 }

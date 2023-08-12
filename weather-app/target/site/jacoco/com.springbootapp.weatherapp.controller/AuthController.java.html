@@ -22,20 +22,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 <span class="nc bnc" id="L23" title="All 2 branches missed.">        if (code != null) {</span>
 <span class="nc" id="L24">            return ResponseEntity.ok(token);</span>
-        } else {
-<span class="nc" id="L26">            return ResponseEntity.notFound().build();</span>
         }
-    }
-
-    @GetMapping(&quot;/code/random&quot;)
-    public ResponseEntity&lt;String&gt; getRandomCode() {
-<span class="nc" id="L32">        String code = this.jwtTokenUtil.generateRandomCode();</span>
-
-<span class="nc bnc" id="L34" title="All 2 branches missed.">        if (code != null) {</span>
-<span class="nc" id="L35">            return ResponseEntity.ok(code);</span>
-        } else {
-<span class="nc" id="L37">            return ResponseEntity.notFound().build();</span>
-        }
+<span class="nc" id="L26">        return ResponseEntity.notFound().build();</span>
     }
 
 }

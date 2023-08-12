@@ -22,20 +22,8 @@ public class AuthController{
 
         if (code != null) {
             return ResponseEntity.ok(token);
-        } else {
-            return ResponseEntity.notFound().build();
         }
-    }
-
-    @GetMapping("/code/random")
-    public ResponseEntity<String> getRandomCode() {
-        String code = this.jwtTokenUtil.generateRandomCode();
-
-        if (code != null) {
-            return ResponseEntity.ok(code);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        return ResponseEntity.notFound().build();
     }
 
 }

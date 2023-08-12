@@ -3,38 +3,52 @@
 import com.springbootapp.weatherapp.model.DayData;
 import com.springbootapp.weatherapp.model.Municipality;
 import com.springbootapp.weatherapp.model.dto.ForecastDTO;
+import com.springbootapp.weatherapp.model.dto.TemperatureDTO;
 import javax.annotation.processing.Generated;
 
 @Generated(
     value = &quot;org.mapstruct.ap.MappingProcessor&quot;,
-    date = &quot;2023-08-10T22:50:46+0200&quot;,
+    date = &quot;2023-08-12T04:08:20+0200&quot;,
     comments = &quot;version: 1.5.5.Final, compiler: javac, environment: Java 17.0.7 (Oracle Corporation)&quot;
 )
-<span class="fc" id="L13">public class ReportMapperImpl implements ReportMapper {</span>
+<span class="fc" id="L14">public class ReportMapperImpl implements ReportMapper {</span>
 
     @Override
-    public void updateNameForecastDTOFromMun(ForecastDTO forecastDTO, Municipality mun) {
-<span class="pc bpc" id="L17" title="1 of 2 branches missed.">        if ( mun == null ) {</span>
-<span class="nc" id="L18">            return;</span>
+    public void updateForecastDTOFromMun(ForecastDTO forecastDTO, Municipality mun) {
+<span class="pc bpc" id="L18" title="1 of 2 branches missed.">        if ( mun == null ) {</span>
+<span class="nc" id="L19">            return;</span>
         }
 
-<span class="fc" id="L21">        forecastDTO.setName( mun.getName() );</span>
-<span class="fc" id="L22">    }</span>
+<span class="fc" id="L22">        forecastDTO.setMunicipality( mun );</span>
+<span class="fc" id="L23">    }</span>
 
     @Override
     public ForecastDTO dayToForecastDTO(DayData dayData) {
-<span class="pc bpc" id="L26" title="1 of 2 branches missed.">        if ( dayData == null ) {</span>
-<span class="nc" id="L27">            return null;</span>
+<span class="pc bpc" id="L27" title="1 of 2 branches missed.">        if ( dayData == null ) {</span>
+<span class="nc" id="L28">            return null;</span>
         }
 
-<span class="fc" id="L30">        ForecastDTO forecastDTO = new ForecastDTO();</span>
+<span class="fc" id="L31">        ForecastDTO forecastDTO = new ForecastDTO();</span>
 
-<span class="fc" id="L32">        forecastDTO.setDate( dayData.getDate() );</span>
+<span class="fc" id="L33">        forecastDTO.setDate( dayData.getDate() );</span>
+<span class="fc" id="L34">        forecastDTO.setTemperature( dayDataToTemperatureDTO( dayData ) );</span>
 
-<span class="fc bfc" id="L34" title="All 2 branches covered.">        forecastDTO.setProbPrecipitations( dayData.getProbPrecipitations().size() &gt; 3 ? dayData.getProbPrecipitations().subList(3, dayData.getProbPrecipitations().size()) : dayData.getProbPrecipitations() );</span>
-<span class="fc" id="L35">        forecastDTO.setAvg( (double) Math.round((dayData.getTemperature().getMax() + dayData.getTemperature().getMin()) / 2.0) );</span>
+<span class="fc bfc" id="L36" title="All 2 branches covered.">        forecastDTO.setProbPrecipitations( dayData.getProbPrecipitations().size() &gt; 3 ? dayData.getProbPrecipitations().subList(3, dayData.getProbPrecipitations().size()) : dayData.getProbPrecipitations() );</span>
 
-<span class="fc" id="L37">        return forecastDTO;</span>
+<span class="fc" id="L38">        return forecastDTO;</span>
+    }
+
+    protected TemperatureDTO dayDataToTemperatureDTO(DayData dayData) {
+<span class="pc bpc" id="L42" title="1 of 2 branches missed.">        if ( dayData == null ) {</span>
+<span class="nc" id="L43">            return null;</span>
+        }
+
+<span class="fc" id="L46">        TemperatureDTO temperatureDTO = new TemperatureDTO();</span>
+
+<span class="fc" id="L48">        temperatureDTO.setAvg( Float.valueOf(Math.round((dayData.getTemp().getMax() + dayData.getTemp().getMin()) / 2.0)) );</span>
+<span class="fc" id="L49">        temperatureDTO.setUnit( setUnit() );</span>
+
+<span class="fc" id="L51">        return temperatureDTO;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

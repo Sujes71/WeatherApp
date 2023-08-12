@@ -59,13 +59,10 @@ public class CucumberDefinitions {
         String code = "jjefjnejf123434jn";
         String tokenGenerated = "simulacion_token_generado_de_code";
 
-        when(mockJwtTokenUtil.generateRandomCode()).thenReturn(code);
         when(mockJwtTokenUtil.generateToken(code)).thenReturn(tokenGenerated);
 
-        String controlCode = this.authController.getRandomCode().getBody();
-        String controlToken = this.authController.getToken(controlCode).getBody();
+        String controlToken = this.authController.getToken(code).getBody();
 
-        assertEquals(controlCode, code);
         assertEquals(controlToken, tokenGenerated);
     }
 

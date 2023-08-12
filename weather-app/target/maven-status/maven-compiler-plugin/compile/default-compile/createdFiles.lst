@@ -4,9 +4,11 @@ com\springbootapp\weatherapp\model\mapper\ReportMapper.class
 com\springbootapp\weatherapp\model\entity\ProbPrecipitationEntity.class
 com\springbootapp\weatherapp\model\Temperature.class
 com\springbootapp\weatherapp\repository\ForecastRepository.class
+com\springbootapp\weatherapp\model\entity\MunicipalityEntity.class
 com\springbootapp\weatherapp\model\WData.class
 com\springbootapp\weatherapp\service\component\HazelCastUtil.class
 com\springbootapp\weatherapp\model\dto\ForecastDTO.class
+com\springbootapp\weatherapp\repository\MunicipalityRepository.class
 com\springbootapp\weatherapp\WeatherAppApplication.class
 com\springbootapp\weatherapp\config\RestTemplateConfig.class
 com\springbootapp\weatherapp\enums\TemperatureEnum.class
@@ -28,4 +30,6 @@ com\springbootapp\weatherapp\model\Municipality.class
 com\springbootapp\weatherapp\model\WReport.class
 com\springbootapp\weatherapp\model\Prediction.class
 com\springbootapp\weatherapp\model\DayData.class
+com\springbootapp\weatherapp\model\entity\TemperatureEntity.class
 com\springbootapp\weatherapp\model\mapper\ReportMapperImpl.class
+com\springbootapp\weatherapp\repository\ProbPrecipitationRepository.class

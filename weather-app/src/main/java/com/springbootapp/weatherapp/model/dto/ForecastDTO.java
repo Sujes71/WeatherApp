@@ -1,5 +1,6 @@
 package com.springbootapp.weatherapp.model.dto;
 
+import com.springbootapp.weatherapp.model.Municipality;
 import com.springbootapp.weatherapp.model.ProbPrecipitation;
 import lombok.Data;
 
@@ -9,13 +10,9 @@ import java.util.List;
 @Data
 public class ForecastDTO {
 
-    private String name;
+    private Municipality municipality;
     private Date date;
-    private Double avg;
-    private String unit;
+    private TemperatureDTO temperature;
     private List<ProbPrecipitation> probPrecipitations;
 
-    public ForecastDTO(){
-        this.unit = "G_CEL";
-    }
 }

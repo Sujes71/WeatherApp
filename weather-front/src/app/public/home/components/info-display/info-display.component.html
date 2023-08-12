@@ -1,0 +1,25 @@
+<div class="container mt-4">
+  <div data-cy="forecast" class="fullDataContainer d-flex justify-content-center align-items-center" *ngIf="forecast && showedTemp">
+    <div class="dataContainer text-center">
+      <h1 class="name text-xl">{{ forecast.municipality?.name }}</h1>
+      <h2 class="date text-lg">{{ formattedDate }}</h2>
+      <h1 class="temp text-xxl">{{ showedTemp }}</h1>
+    </div>
+  </div>
+  
+<div class="center-container" *ngIf="forecast">
+  <table class="table">
+    <tbody>
+      <tr>
+        <ng-container *ngFor="let prob of forecast.probPrecipitations">
+          <td data-cy="value" class="value"><b>{{ prob.value }}%</b></td>
+        </ng-container>
+      </tr>
+      <tr>
+        <ng-container *ngFor="let prob of forecast.probPrecipitations">
+          <td class="period"><b>{{ prob.period }}</b></td>
+        </ng-container>
+      </tr>
+    </tbody>
+  </table>
+</div>

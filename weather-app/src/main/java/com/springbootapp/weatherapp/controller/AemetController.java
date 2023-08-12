@@ -34,9 +34,8 @@ public class AemetController {
 
         if (!muns.isEmpty()) {
             return ResponseEntity.ok(muns);
-        } else {
-            return ResponseEntity.notFound().build();
         }
+        return ResponseEntity.notFound().build();
     }
 
     @Operation(summary = "Get the municipality by id", description = "Get the municipality by id")
@@ -47,9 +46,8 @@ public class AemetController {
 
         if (mun != null) {
             return ResponseEntity.ok(mun);
-        } else {
-            return ResponseEntity.notFound().build();
         }
+        return ResponseEntity.notFound().build();
     }
     @Operation(summary = "Get the weather forecast for tomorrow", description = "Get the weather forecast for tomorrow")
     @SecurityRequirement(name = "Bearer Authentication")
@@ -59,9 +57,8 @@ public class AemetController {
 
         if (forecastDTO != null) {
             return ResponseEntity.ok(forecastDTO);
-        } else {
-            return ResponseEntity.notFound().build();
         }
+        return ResponseEntity.notFound().build();
     }
 
     @GetMapping("/conversion/{avg}/{unit}")
@@ -71,8 +68,7 @@ public class AemetController {
 
         if (temperatureDTO != null) {
             return ResponseEntity.ok(temperatureDTO);
-        } else {
-            return ResponseEntity.notFound().build();
         }
+        return ResponseEntity.notFound().build();
     }
 }
