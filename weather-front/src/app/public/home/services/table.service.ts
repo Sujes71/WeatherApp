@@ -17,8 +17,8 @@ export class TableService {
     );
   }
   
-  deleteForecast(id: String): Observable<any> {
-    const url = `/api/forecast/delete/${id}`;
+  deleteForecast(id: String): Observable<String> {
+    const url = `/api/command/forecast/delete/${id}`;
     return this.http.delete(url, { responseType: 'text' }).pipe(
       catchError(this.sharedService.handleError)
     );

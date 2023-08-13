@@ -10,7 +10,7 @@ public interface ForecastService {
     List<ElementDTO> getForecasts();
     List<ForecastEntity> getForecastsByMunicipality(String name);
     ForecastEntity getForecastById(Long id);
-    ForecastEntity addForecast(ForecastEntity forecastEntity);
-    void deleteById(Long id);
+    boolean addForecast(ForecastEntity forecastEntity);
+    boolean deleteById(Long id);
 
 }

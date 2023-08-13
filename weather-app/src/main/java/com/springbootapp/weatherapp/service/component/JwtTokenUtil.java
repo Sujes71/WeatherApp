@@ -1,8 +1,11 @@
 package com.springbootapp.weatherapp.service.component;
 
+import com.springbootapp.weatherapp.service.kafka.KafkaConsumerService;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.Data;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -11,6 +14,7 @@ import java.util.Date;
 @Component
 @Data
 public class JwtTokenUtil {
+    private static final Logger logger = LoggerFactory.getLogger(JwtTokenUtil.class);
 
     @Value("${jwt.secret}")
     private String secret;
@@ -43,6 +47,7 @@ public class JwtTokenUtil {
                     .parseClaimsJws(token);
             return true;
         } catch (Exception e) {
+            logger.error("Token validation error.", e);
             return false;
         }
     }

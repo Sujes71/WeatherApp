@@ -1,7 +1,7 @@
 package com.springbootapp.weatherapp.it.step_definitions;
 
 import com.hazelcast.map.IMap;
-import com.springbootapp.weatherapp.controller.AuthController;
+import com.springbootapp.weatherapp.controller.query.AuthController;
 import com.springbootapp.weatherapp.model.Municipality;
 import com.springbootapp.weatherapp.service.component.HazelCastUtil;
 import com.springbootapp.weatherapp.service.component.JwtTokenUtil;

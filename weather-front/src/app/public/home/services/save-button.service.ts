@@ -11,7 +11,7 @@ export class SaveButtonService {
     constructor(private http: HttpClient, private sharedService: SharedService ) { }
 
     addForecast(json: any): Observable<any> {
-        const url = '/api/forecast/add';
+        const url = '/api/command/forecast/add';
         return this.http.post(url, json, { headers: {'Content-Type': 'application/json'} }).pipe(
           catchError(this.sharedService.handleError)
         );

@@ -33,10 +33,11 @@ export class SaveButtonComponent implements OnInit {
       this.saveButtonService.addForecast(this.forecast).subscribe( {
           next: (response) => {
             this.isButtonDisabled = true;
-            console.log('El post ha sido exitoso');
+            console.log(response);
+            console.log('Post has been added successfully');
           },
           error: (error) => {
-            console.log(error)
+              console.log(error)
           }
         }
       );

@@ -7,7 +7,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 @Repository
-@Profile("prod")
 public interface MunicipalityRepository extends JpaRepository<MunicipalityEntity, Long> {
 
     @Query("SELECT mun FROM MunicipalityEntity mun WHERE mun.name = ?1")

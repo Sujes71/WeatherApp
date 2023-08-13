@@ -17,6 +17,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
                 .addPathPatterns("/api/aemet/**")
                 .addPathPatterns("/forecast/**")
                 .addPathPatterns("/api/forecast/**")
+                .addPathPatterns("/command/**")
+                .addPathPatterns("/api/command/**")
                 .order(1);
     }
 }

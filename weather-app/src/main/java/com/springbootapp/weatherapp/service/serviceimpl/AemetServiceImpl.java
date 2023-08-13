@@ -9,6 +9,10 @@ import com.springbootapp.weatherapp.model.dto.TemperatureDTO;
 import com.springbootapp.weatherapp.model.mapper.ReportMapper;
 import com.springbootapp.weatherapp.service.AemetService;
 import com.springbootapp.weatherapp.service.component.HazelCastUtil;
+import com.springbootapp.weatherapp.service.component.JwtTokenUtil;
+import com.springbootapp.weatherapp.service.kafka.KafkaConsumerService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
@@ -27,7 +31,7 @@ import static com.springbootapp.weatherapp.enums.TemperatureEnum.TEMPERATURE_FAH
 
 @Service
 public class AemetServiceImpl implements AemetService {
-
+    private static final Logger logger = LoggerFactory.getLogger(AemetServiceImpl.class);
     @Value("${aemet.api-key}")
     private String apiKey;
 

@@ -2,8 +2,36 @@ version: '3.9'
 
 services:
 
-  postgres:
+  zookeeper:
+    image: confluentinc/cp-zookeeper:latest
+    container_name: zookeeper
+    environment:
+      ZOOKEEPER_SERVER_ID: 1
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    ports:
+      - "22181:2181"
+
+  broker:
+    image: confluentinc/cp-kafka:latest
+    container_name: broker
+    ports:
+      - "9092:9092"
+    depends_on:
+      - zookeeper
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://broker:9092
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+
+  postgresql:
     image: postgres:latest
+    container_name: postgresql
     ports:
       - "5432:5432"
     environment:
@@ -13,12 +41,15 @@ services:
     volumes:
       - postgres-data:/var/lib/postgresql/data
 
-  weather-app:
+  weather-back:
     build:
       context: ./weather-app
-    container_name: weather-app
+    container_name: weather-back
     ports:
       - 8080:8080
+    depends_on:
+      - postgresql
+      - broker
 
   weather-front:
     build:
@@ -26,6 +57,8 @@ services:
     container_name: weather-front
     ports:
       - 4200:80
+    depends_on:
+      - weather-back
 
 volumes:
   postgres-data:
