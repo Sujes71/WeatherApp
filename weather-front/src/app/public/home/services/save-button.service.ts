@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, catchError, throwError } from 'rxjs';
-import { Forecast } from 'src/app/core/models/forecast';
+import { Observable, catchError } from 'rxjs';
 import { SharedService } from 'src/app/core/shared/services/shared.service';
 
 @Injectable({
@@ -17,13 +16,4 @@ export class SaveButtonService {
           catchError(this.sharedService.handleError)
         );
       }
-      
-
-    getAllForecast(): Observable<Forecast[]> {
-        const url = "/api/forecast/all";
-        return this.http.get<Forecast[]>(url).pipe(
-            catchError(this.sharedService.handleError)
-        );
-    }
-
 }

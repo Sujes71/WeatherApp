@@ -1,0 +1,25 @@
+.filter-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin: 0 auto;
+  }
+  
+  .filter-form-field {
+    width: 100%;
+    position: relative; /* Importante para posicionar el icono */
+  }
+  
+  .input-icon {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  
+  .input-icon i {
+    font-size: 24px;
+  }
+
+
+  

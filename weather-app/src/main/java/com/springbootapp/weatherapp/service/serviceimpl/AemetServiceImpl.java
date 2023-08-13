@@ -1,6 +1,9 @@
 package com.springbootapp.weatherapp.service.serviceimpl;
 
-import com.springbootapp.weatherapp.model.*;
+import com.springbootapp.weatherapp.model.DayData;
+import com.springbootapp.weatherapp.model.Municipality;
+import com.springbootapp.weatherapp.model.WData;
+import com.springbootapp.weatherapp.model.WReport;
 import com.springbootapp.weatherapp.model.dto.ForecastDTO;
 import com.springbootapp.weatherapp.model.dto.TemperatureDTO;
 import com.springbootapp.weatherapp.model.mapper.ReportMapper;
@@ -45,7 +48,8 @@ public class AemetServiceImpl implements AemetService {
         if (hazelCastUtil.getMunCache().containsKey(url)) {
             return hazelCastUtil.getMunCache().get(url);
         }
-        ResponseEntity<Municipality[]> response = restTemplate.exchange(url, HttpMethod.GET, null, Municipality[].class);
+        ResponseEntity<Municipality[]> response = restTemplate
+                .exchange(url, HttpMethod.GET, null, Municipality[].class);
         List<Municipality> muns = Arrays.asList(response.getBody());
         hazelCastUtil.getMunCache().put(url, muns);
 
@@ -55,7 +59,8 @@ public class AemetServiceImpl implements AemetService {
     @Override
     public Municipality getMunById(String id) {
         String url = String.format("%s/%s%s", master, id, apiKey);
-        ResponseEntity<Municipality[]> response = restTemplate.exchange(url, HttpMethod.GET, null, Municipality[].class);
+        ResponseEntity<Municipality[]> response = restTemplate
+                .exchange(url, HttpMethod.GET, null, Municipality[].class);
         Municipality mun = response.getBody()[0];
 
         return mun;
@@ -70,13 +75,20 @@ public class AemetServiceImpl implements AemetService {
         int tomorrow = LocalDate.now().plusDays(1).getDayOfMonth();
 
         if(isMunFound(id)){
-            ResponseEntity<WData> responseDatos = restTemplate.exchange(url, HttpMethod.GET, null, WData.class);
+            ResponseEntity<WData> responseDatos = restTemplate
+                    .exchange(url, HttpMethod.GET, null, WData.class);
             wData = responseDatos.getBody();
 
-            ResponseEntity<WReport[]> response = restTemplate.exchange(wData.getData(), HttpMethod.GET, null, WReport[].class);
+            ResponseEntity<WReport[]> response = restTemplate
+                    .exchange(wData.getData(), HttpMethod.GET, null, WReport[].class);
             try{
                 dayData = response.getBody()[0].getPrediction().getDay().stream().filter(
-                        diaI -> tomorrow == diaI.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().getDayOfMonth()
+                        diaI -> tomorrow == diaI
+                                .getDate()
+                                .toInstant()
+                                .atZone(ZoneId.systemDefault())
+                                .toLocalDate()
+                                .getDayOfMonth()
                 ).collect(Collectors.toList()).get(0);
             }catch (Exception e){}
 

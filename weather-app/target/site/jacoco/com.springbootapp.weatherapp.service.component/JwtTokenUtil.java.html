@@ -7,44 +7,43 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
-import java.util.Random;
 
 @Component
-<span class="pc bpc" id="L13" title="29 of 32 branches missed.">@Data</span>
+<span class="pc bpc" id="L12" title="29 of 32 branches missed.">@Data</span>
 public class JwtTokenUtil {
 
     @Value(&quot;${jwt.secret}&quot;)
-<span class="fc" id="L17">    private String secret;</span>
+<span class="fc" id="L16">    private String secret;</span>
 
     @Value(&quot;${jwt.expiration}&quot;)
-<span class="fc" id="L20">    private Long expiration;</span>
+<span class="fc" id="L19">    private Long expiration;</span>
 
     @Value(&quot;${jwt.characters}&quot;)
-<span class="fc" id="L23">    private String CHARACTERS;</span>
+<span class="fc" id="L22">    private String CHARACTERS;</span>
 
     @Value(&quot;${jwt.length}&quot;)
-<span class="fc" id="L26">    private int CODE_LENGTH;</span>
+<span class="fc" id="L25">    private int CODE_LENGTH;</span>
 
     public String generateToken(String code) {
-<span class="nc" id="L29">        Date now = new Date();</span>
-<span class="nc" id="L30">        Date expirationDate = new Date(now.getTime() + expiration);</span>
+<span class="nc" id="L28">        Date now = new Date();</span>
+<span class="nc" id="L29">        Date expirationDate = new Date(now.getTime() + expiration);</span>
 
-<span class="nc" id="L32">        return Jwts.builder()</span>
-<span class="nc" id="L33">                .setSubject(code)</span>
-<span class="nc" id="L34">                .setIssuedAt(now)</span>
-<span class="nc" id="L35">                .setExpiration(expirationDate)</span>
-<span class="nc" id="L36">                .signWith(SignatureAlgorithm.HS512, secret.getBytes())</span>
-<span class="nc" id="L37">                .compact();</span>
+<span class="nc" id="L31">        return Jwts.builder()</span>
+<span class="nc" id="L32">                .setSubject(code)</span>
+<span class="nc" id="L33">                .setIssuedAt(now)</span>
+<span class="nc" id="L34">                .setExpiration(expirationDate)</span>
+<span class="nc" id="L35">                .signWith(SignatureAlgorithm.HS512, secret.getBytes())</span>
+<span class="nc" id="L36">                .compact();</span>
     }
 
     public boolean validateToken(String token) {
         try {
-<span class="nc" id="L42">            Jwts.parser()</span>
-<span class="nc" id="L43">                    .setSigningKey(secret.getBytes())</span>
-<span class="nc" id="L44">                    .parseClaimsJws(token);</span>
-<span class="nc" id="L45">            return true;</span>
-<span class="nc" id="L46">        } catch (Exception e) {</span>
-<span class="nc" id="L47">            return false;</span>
+<span class="nc" id="L41">            Jwts.parser()</span>
+<span class="nc" id="L42">                    .setSigningKey(secret.getBytes())</span>
+<span class="nc" id="L43">                    .parseClaimsJws(token);</span>
+<span class="nc" id="L44">            return true;</span>
+<span class="nc" id="L45">        } catch (Exception e) {</span>
+<span class="nc" id="L46">            return false;</span>
         }
     }
 }

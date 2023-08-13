@@ -1,11 +1,11 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { Municipality } from 'src/app/core/models/municipality';
+import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { Observable, debounceTime } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
-import { SharedService } from 'src/app/core/shared/services/shared.service';
 import { Forecast, ForecastDTO } from 'src/app/core/models/forecast';
+import { Municipality } from 'src/app/core/models/municipality';
+import { SharedService } from 'src/app/core/shared/services/shared.service';
 import { InputAutocompleteService } from '../../services/input-autocomplete.service';
 
 @Component({

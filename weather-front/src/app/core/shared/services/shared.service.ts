@@ -23,6 +23,9 @@ export class SharedService {
   private showedTemp = new BehaviorSubject<string>('');
   showedTemp$ = this.showedTemp.asObservable();
 
+  private readyIndex = new BehaviorSubject<boolean>(false);
+  readyIndex$ = this.readyIndex.asObservable();
+
   constructor(private http: HttpClient) { }
 
   getToken(code: String): Observable<string> {
@@ -40,6 +43,10 @@ export class SharedService {
     this.showedTemp.next(temp);
   }
 
+  setrReadyIndex(readyIndex: boolean) {
+    this.readyIndex.next(readyIndex);
+  }
+
   setReadyFlag(flag: boolean) {
     this.readyFlag.next(flag);
   }
@@ -54,7 +61,7 @@ export class SharedService {
 
   public handleError(error: Response) {
     console.log(error);
-    const msg = 'Erros status code: ' + error.status + ' status: ' + error.statusText + '\n';
+    const msg = 'Error status code: ' + error.status + ' status:' + error.statusText + '\n';
     return throwError(() => new Error(msg));
   }
 

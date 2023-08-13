@@ -1,5 +1,5 @@
 <div class="addButton">
-  <button mat-raised-button color="primary" (click)="addForecast()" [disabled]="forecast === null">
+  <button data-cy="saveButton" mat-raised-button color="primary" (click)="addForecast()" *ngIf="forecast != null" [disabled]="isButtonDisabled">
     <mat-icon>add</mat-icon>
     Añadir
   </button>

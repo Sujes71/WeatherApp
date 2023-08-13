@@ -2,12 +2,8 @@ package com.springbootapp.weatherapp.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.context.annotation.Profile;
-
-import java.util.List;
 
 @Entity
 @Getter

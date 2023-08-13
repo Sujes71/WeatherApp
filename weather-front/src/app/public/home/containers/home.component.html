@@ -1,5 +1,24 @@
-<app-back-connection></app-back-connection> 
-<app-select></app-select>
-<app-input-autocomplete></app-input-autocomplete>
-<app-save-button></app-save-button>
-<app-info-display></app-info-display>
+<app-back-connection></app-back-connection>
+<div class="mat-tab">
+    <mat-tab-group class="mat-tab-group" #tabGroup (selectedIndexChange)="_setDataSource($event)">
+        <mat-tab label="APP"> 
+            <div class="d-flex">
+            <div class="flex-grow-1"> 
+                <app-input-autocomplete></app-input-autocomplete>
+            </div>
+            <div class="ml-2">
+                <app-select></app-select>
+            </div>
+            </div>
+            <app-info-display></app-info-display>
+            <app-save-button></app-save-button> 
+        </mat-tab>
+        <div role="tab">
+        <mat-tab class="mat-tab-label" label="DATOS">
+            <div class="container mt-4">
+                <app-table></app-table>
+            </div>               
+        </mat-tab> 
+    </div>
+    </mat-tab-group>
+</div>

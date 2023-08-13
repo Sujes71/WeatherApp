@@ -1,25 +1,30 @@
-<div class="container mt-4">
-  <div data-cy="forecast" class="fullDataContainer d-flex justify-content-center align-items-center" *ngIf="forecast && showedTemp">
-    <div class="dataContainer text-center">
-      <h1 class="name text-xl">{{ forecast.municipality?.name }}</h1>
-      <h2 class="date text-lg">{{ formattedDate }}</h2>
-      <h1 class="temp text-xxl">{{ showedTemp }}</h1>
+<ng-container *ngIf="forecast">
+  <div class="fullcontainer">
+    <div data-cy="forecast" id="data" class="fullDataContainer d-flex justify-content-center align-items-center mb-4 text-center">
+      <div class="dataContainer mb-4">
+        <h1 class="name">{{ forecast.municipality.name }}</h1>
+        <h2 class="date">{{ formattedDate }}</h2>
+        <h1 class="temp">{{ showedTemp }} </h1>
+        <img src="../../../../assets/images/sun.png" id="sun" class="rounded mx-auto d-block" alt="cloud">
+      </div>
+    </div>  
+
+    <div class="container mt-4 mb-4 d-flex flex-column">
+      <img src="../../../../assets/images/nube.png" id="cloud" class="rounded float-start" alt="cloud">
+      <table class="table table-bordered mt-4">
+        <tbody>
+          <tr class="bg-primary">
+            <ng-container *ngFor="let prob of forecast.probPrecipitations">
+              <td data-cy="value" class="bg-primary text-light table-text-primary" style="text-align: center;"><b>{{ prob.value }}%</b></td>
+            </ng-container>
+          </tr>
+          <tr>
+            <ng-container *ngFor="let prob of forecast.probPrecipitations">
+              <td class="bg-info table-text-info" style="text-align: center;"><b>{{ prob.period }}</b></td>
+            </ng-container>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
-  
-<div class="center-container" *ngIf="forecast">
-  <table class="table">
-    <tbody>
-      <tr>
-        <ng-container *ngFor="let prob of forecast.probPrecipitations">
-          <td data-cy="value" class="value"><b>{{ prob.value }}%</b></td>
-        </ng-container>
-      </tr>
-      <tr>
-        <ng-container *ngFor="let prob of forecast.probPrecipitations">
-          <td class="period"><b>{{ prob.period }}</b></td>
-        </ng-container>
-      </tr>
-    </tbody>
-  </table>
-</div>
+</ng-container>

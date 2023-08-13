@@ -30,18 +30,22 @@ public class CustomFilter extends GenericFilterBean {
         String clientId = getClientId(servletRequest);
 
         if (isUserBlocked(clientId)) {
-            servletResponse.getWriter().write("User is blocked due to excessive requests. Please try again later.");
+            servletResponse.getWriter()
+                    .write("User is blocked due to excessive requests. Please try again later.");
             servletResponse.flushBuffer();
             return;
         }
 
-        LocalBucket bucket = buckets.computeIfAbsent(clientId, k -> createNewBucket());
+        LocalBucket bucket = buckets
+                .computeIfAbsent(clientId, k -> createNewBucket());
 
         if (bucket.tryConsume(1)) {
             filterChain.doFilter(servletRequest, servletResponse);
         } else {
             blockUser(clientId);
-            servletResponse.getWriter().write("Too many requests. User is blocked. Please try again later.");
+            servletResponse
+                    .getWriter()
+                    .write("Too many requests. User is blocked. Please try again later.");
             servletResponse.flushBuffer();
         }
     }
@@ -51,8 +55,10 @@ public class CustomFilter extends GenericFilterBean {
     }
 
     private LocalBucket createNewBucket() {
-        Refill refill = Refill.intervally(BUCKET_CAPACITY, Duration.ofMinutes(REFILL_INTERVAL_MINUTES));
-        Bandwidth limit = Bandwidth.classic(BUCKET_CAPACITY, refill).withInitialTokens(BUCKET_CAPACITY);
+        Refill refill = Refill
+                .intervally(BUCKET_CAPACITY, Duration.ofMinutes(REFILL_INTERVAL_MINUTES));
+        Bandwidth limit = Bandwidth
+                .classic(BUCKET_CAPACITY, refill).withInitialTokens(BUCKET_CAPACITY);
         return Bucket.builder()
                 .addLimit(limit)
                 .build();

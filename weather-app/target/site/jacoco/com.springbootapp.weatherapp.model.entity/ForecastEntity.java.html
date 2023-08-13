@@ -2,41 +2,39 @@
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.context.annotation.Profile;
 
-import java.util.*;
+import java.util.Date;
+import java.util.Set;
 
 @Entity
 @Getter
-<span class="nc" id="L14">@Setter</span>
+<span class="fc" id="L13">@Setter</span>
 @Table(name = &quot;forecast&quot;)
-@Profile(&quot;prod&quot;)
 public class ForecastEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
-<span class="nc" id="L21">    private Long id;</span>
+<span class="nc" id="L19">    private Long id;</span>
     @Column
     @Temporal(TemporalType.DATE)
-<span class="nc" id="L24">    private Date date;</span>
+<span class="nc" id="L22">    private Date date;</span>
     @Column
-<span class="nc" id="L26">    private String municipality;</span>
+<span class="nc" id="L24">    private String municipality;</span>
     @OneToOne(
             cascade = CascadeType.ALL,
             orphanRemoval = true)
     @JoinColumn(name = &quot;temperature_id&quot;)
-<span class="nc" id="L31">    private TemperatureEntity temperature;</span>
+<span class="nc" id="L29">    private TemperatureEntity temperature;</span>
     @OneToMany(
             cascade = CascadeType.ALL,
             orphanRemoval = true,
             mappedBy = &quot;forecast&quot;)
     @JsonManagedReference
-<span class="nc" id="L37">    private Set&lt;ProbPrecipitationEntity&gt; probPrecipitations;</span>
+<span class="nc" id="L35">    private Set&lt;ProbPrecipitationEntity&gt; probPrecipitations;</span>
 
-<span class="fc" id="L39">    public ForecastEntity(){}</span>
+<span class="fc" id="L37">    public ForecastEntity(){}</span>
 }
 
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

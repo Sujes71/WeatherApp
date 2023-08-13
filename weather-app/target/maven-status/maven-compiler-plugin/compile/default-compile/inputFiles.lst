@@ -12,6 +12,8 @@ C:\Users\destr\IdeaProjects\weather-app\src\main\java\com\springbootapp\weathera
 C:\Users\destr\IdeaProjects\weather-app\src\main\java\com\springbootapp\weatherapp\model\mapper\ReportMapper.java
 C:\Users\destr\IdeaProjects\weather-app\src\main\java\com\springbootapp\weatherapp\service\component\JwtTokenUtil.java
 C:\Users\destr\IdeaProjects\weather-app\src\main\java\com\springbootapp\weatherapp\model\entity\ForecastEntity.java
+C:\Users\destr\IdeaProjects\weather-app\src\main\java\com\springbootapp\weatherapp\service\ForecastService.java
+C:\Users\destr\IdeaProjects\weather-app\src\main\java\com\springbootapp\weatherapp\service\serviceimpl\ForecastServiceImpl.java
 C:\Users\destr\IdeaProjects\weather-app\src\main\java\com\springbootapp\weatherapp\model\WReport.java
 C:\Users\destr\IdeaProjects\weather-app\src\main\java\com\springbootapp\weatherapp\model\entity\TemperatureEntity.java
 C:\Users\destr\IdeaProjects\weather-app\src\main\java\com\springbootapp\weatherapp\WeatherAppApplication.java

@@ -2,25 +2,21 @@
 
 import jakarta.persistence.*;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
-import org.springframework.context.annotation.Profile;
 
 @Entity
-<span class="nc bnc" id="L10" title="All 30 branches missed.">@Data</span>
+<span class="pc bnc" id="L7" title="All 30 branches missed.">@Data</span>
 @Table(name = &quot;temperature&quot;)
-@Profile(&quot;prod&quot;)
 public class TemperatureEntity {
     @Id
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
     @Column
-<span class="nc" id="L17">    private Long id;</span>
+<span class="nc" id="L13">    private Long id;</span>
     @Column
-<span class="nc" id="L19">    private Float avg;</span>
+<span class="nc" id="L15">    private Float avg;</span>
     @Column
-<span class="nc" id="L21">    private String unit;</span>
+<span class="nc" id="L17">    private String unit;</span>
 
-<span class="fc" id="L23">    public TemperatureEntity(){}</span>
+<span class="fc" id="L19">    public TemperatureEntity(){}</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

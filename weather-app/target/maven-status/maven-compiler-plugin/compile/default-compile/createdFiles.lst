@@ -4,6 +4,7 @@ com\springbootapp\weatherapp\model\mapper\ReportMapper.class
 com\springbootapp\weatherapp\model\entity\ProbPrecipitationEntity.class
 com\springbootapp\weatherapp\model\Temperature.class
 com\springbootapp\weatherapp\repository\ForecastRepository.class
+com\springbootapp\weatherapp\service\serviceimpl\ForecastServiceImpl.class
 com\springbootapp\weatherapp\model\entity\MunicipalityEntity.class
 com\springbootapp\weatherapp\model\WData.class
 com\springbootapp\weatherapp\service\component\HazelCastUtil.class
@@ -33,3 +34,4 @@ com\springbootapp\weatherapp\model\DayData.class
 com\springbootapp\weatherapp\model\entity\TemperatureEntity.class
 com\springbootapp\weatherapp\model\mapper\ReportMapperImpl.class
 com\springbootapp\weatherapp\repository\ProbPrecipitationRepository.class
+com\springbootapp\weatherapp\service\ForecastService.class

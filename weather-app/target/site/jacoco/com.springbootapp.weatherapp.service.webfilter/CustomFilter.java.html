@@ -30,46 +30,52 @@ import java.util.concurrent.TimeUnit;
 <span class="nc" id="L30">        String clientId = getClientId(servletRequest);</span>
 
 <span class="nc bnc" id="L32" title="All 2 branches missed.">        if (isUserBlocked(clientId)) {</span>
-<span class="nc" id="L33">            servletResponse.getWriter().write(&quot;User is blocked due to excessive requests. Please try again later.&quot;);</span>
-<span class="nc" id="L34">            servletResponse.flushBuffer();</span>
-<span class="nc" id="L35">            return;</span>
+<span class="nc" id="L33">            servletResponse.getWriter()</span>
+<span class="nc" id="L34">                    .write(&quot;User is blocked due to excessive requests. Please try again later.&quot;);</span>
+<span class="nc" id="L35">            servletResponse.flushBuffer();</span>
+<span class="nc" id="L36">            return;</span>
         }
 
-<span class="nc" id="L38">        LocalBucket bucket = buckets.computeIfAbsent(clientId, k -&gt; createNewBucket());</span>
+<span class="nc" id="L39">        LocalBucket bucket = buckets</span>
+<span class="nc" id="L40">                .computeIfAbsent(clientId, k -&gt; createNewBucket());</span>
 
-<span class="nc bnc" id="L40" title="All 2 branches missed.">        if (bucket.tryConsume(1)) {</span>
-<span class="nc" id="L41">            filterChain.doFilter(servletRequest, servletResponse);</span>
+<span class="nc bnc" id="L42" title="All 2 branches missed.">        if (bucket.tryConsume(1)) {</span>
+<span class="nc" id="L43">            filterChain.doFilter(servletRequest, servletResponse);</span>
         } else {
-<span class="nc" id="L43">            blockUser(clientId);</span>
-<span class="nc" id="L44">            servletResponse.getWriter().write(&quot;Too many requests. User is blocked. Please try again later.&quot;);</span>
-<span class="nc" id="L45">            servletResponse.flushBuffer();</span>
+<span class="nc" id="L45">            blockUser(clientId);</span>
+<span class="nc" id="L46">            servletResponse</span>
+<span class="nc" id="L47">                    .getWriter()</span>
+<span class="nc" id="L48">                    .write(&quot;Too many requests. User is blocked. Please try again later.&quot;);</span>
+<span class="nc" id="L49">            servletResponse.flushBuffer();</span>
         }
-<span class="nc" id="L47">    }</span>
+<span class="nc" id="L51">    }</span>
 
     private String getClientId(ServletRequest request) {
-<span class="nc" id="L50">        return request.getRemoteAddr();</span>
+<span class="nc" id="L54">        return request.getRemoteAddr();</span>
     }
 
     private LocalBucket createNewBucket() {
-<span class="nc" id="L54">        Refill refill = Refill.intervally(BUCKET_CAPACITY, Duration.ofMinutes(REFILL_INTERVAL_MINUTES));</span>
-<span class="nc" id="L55">        Bandwidth limit = Bandwidth.classic(BUCKET_CAPACITY, refill).withInitialTokens(BUCKET_CAPACITY);</span>
-<span class="nc" id="L56">        return Bucket.builder()</span>
-<span class="nc" id="L57">                .addLimit(limit)</span>
-<span class="nc" id="L58">                .build();</span>
+<span class="nc" id="L58">        Refill refill = Refill</span>
+<span class="nc" id="L59">                .intervally(BUCKET_CAPACITY, Duration.ofMinutes(REFILL_INTERVAL_MINUTES));</span>
+<span class="nc" id="L60">        Bandwidth limit = Bandwidth</span>
+<span class="nc" id="L61">                .classic(BUCKET_CAPACITY, refill).withInitialTokens(BUCKET_CAPACITY);</span>
+<span class="nc" id="L62">        return Bucket.builder()</span>
+<span class="nc" id="L63">                .addLimit(limit)</span>
+<span class="nc" id="L64">                .build();</span>
     }
 
     private boolean isUserBlocked(String userId) {
-<span class="nc" id="L62">        Long blockEndTime = blockedUsers.get(userId);</span>
-<span class="nc bnc" id="L63" title="All 2 branches missed.">        if (blockEndTime == null) {</span>
-<span class="nc" id="L64">            return false;</span>
+<span class="nc" id="L68">        Long blockEndTime = blockedUsers.get(userId);</span>
+<span class="nc bnc" id="L69" title="All 2 branches missed.">        if (blockEndTime == null) {</span>
+<span class="nc" id="L70">            return false;</span>
         }
-<span class="nc" id="L66">        long currentTimeMillis = System.currentTimeMillis();</span>
-<span class="nc bnc" id="L67" title="All 2 branches missed.">        return currentTimeMillis &lt; blockEndTime;</span>
+<span class="nc" id="L72">        long currentTimeMillis = System.currentTimeMillis();</span>
+<span class="nc bnc" id="L73" title="All 2 branches missed.">        return currentTimeMillis &lt; blockEndTime;</span>
     }
 
     private void blockUser(String userId) {
-<span class="nc" id="L71">        long blockEndTime = System.currentTimeMillis() + TimeUnit.MINUTES.toMillis(BLOCK_DURATION_MINUTES);</span>
-<span class="nc" id="L72">        blockedUsers.put(userId, blockEndTime);</span>
-<span class="nc" id="L73">    }</span>
+<span class="nc" id="L77">        long blockEndTime = System.currentTimeMillis() + TimeUnit.MINUTES.toMillis(BLOCK_DURATION_MINUTES);</span>
+<span class="nc" id="L78">        blockedUsers.put(userId, blockEndTime);</span>
+<span class="nc" id="L79">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

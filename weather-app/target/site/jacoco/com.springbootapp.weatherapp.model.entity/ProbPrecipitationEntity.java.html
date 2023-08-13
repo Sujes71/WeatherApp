@@ -2,32 +2,27 @@
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.context.annotation.Profile;
-
-import java.util.List;
 
 @Entity
 @Getter
-<span class="nc" id="L14">@Setter</span>
+<span class="nc" id="L10">@Setter</span>
 @Table(name = &quot;prob_precipitation&quot;)
-@Profile(&quot;prod&quot;)
 public class ProbPrecipitationEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
-<span class="nc" id="L21">    private Long id;</span>
+<span class="nc" id="L16">    private Long id;</span>
     @Column
-<span class="nc" id="L23">    private Integer value;</span>
+<span class="nc" id="L18">    private Integer value;</span>
     @Column
-<span class="nc" id="L25">    private String period;</span>
+<span class="nc" id="L20">    private String period;</span>
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = &quot;forecast_id &quot;)
     @JsonBackReference
-<span class="nc" id="L29">    private ForecastEntity forecast;</span>
+<span class="nc" id="L24">    private ForecastEntity forecast;</span>
 
-<span class="fc" id="L31">    public ProbPrecipitationEntity(){}</span>
+<span class="fc" id="L26">    public ProbPrecipitationEntity(){}</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

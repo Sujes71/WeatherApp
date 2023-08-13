@@ -1,0 +1,54 @@
+.custom-table-style {
+    width: 100%;
+  }
+  .fullDataContainer {
+    border-radius: 10px;
+    width: 100%;
+    padding: 20px;
+  }
+  
+  .dataContainer {
+    font-family: 'Roboto', sans-serif;
+    width: 100%;
+    
+  }
+  .container {
+    margin-top: 20px;
+  }
+.name {
+    font-weight: bold;
+    font-size: 2rem;
+    margin-right: 70%;
+    color: #673AB7;
+}
+.temp {
+    font-weight: bold;
+    font-size: 5rem;
+    margin-top: 8vh;
+    color: #673AB7;
+}
+
+.date {
+  color: #673AB7;
+}
+
+.table-text-primary {
+  color: white;
+}
+
+.table-text-info {
+  color: white; 
+}
+
+#cloud {
+  width: 8vh;
+  height: 8vh;
+  position: relative;
+  z-index: -1;
+}
+#sun {
+  width: 13vh;
+  height: 13vh;
+  position: relative;
+  z-index: -1;
+}

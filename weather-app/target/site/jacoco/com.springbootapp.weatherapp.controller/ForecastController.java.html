@@ -1,16 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ForecastController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">weather-app</a> &gt; <a href="index.source.html" class="el_package">com.springbootapp.weatherapp.controller</a> &gt; <span class="el_source">ForecastController.java</span></div><h1>ForecastController.java</h1><pre class="source lang-java linenums">package com.springbootapp.weatherapp.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.nimbusds.jose.shaded.gson.JsonObject;
 import com.springbootapp.weatherapp.model.entity.ForecastEntity;
-import com.springbootapp.weatherapp.model.entity.MunicipalityEntity;
-import com.springbootapp.weatherapp.repository.ForecastRepository;
-import com.springbootapp.weatherapp.repository.MunicipalityRepository;
+import com.springbootapp.weatherapp.service.ForecastService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -21,51 +15,45 @@ import java.util.List;
 @RestController
 @RequestMapping(&quot;/forecast&quot;)
 @Profile(&quot;prod&quot;)
-<span class="nc" id="L24">public class ForecastController {</span>
-
+<span class="fc" id="L18">public class ForecastController {</span>
     @Autowired
-    ForecastRepository forecastRepository;
-    @Autowired
-    MunicipalityRepository municipalityRepository;
+    ForecastService forecastService;
 
     @GetMapping(&quot;/all&quot;)
-    public ResponseEntity&lt;List&lt;ForecastEntity&gt;&gt; getTutorialById() {
-<span class="nc" id="L33">        List&lt;ForecastEntity&gt; forecastEntityData = forecastRepository.findAll(Sort.by(Sort.Order.asc(&quot;id&quot;)));</span>
+    public ResponseEntity&lt;List&lt;ForecastEntity&gt;&gt; getForecasts() {
+<span class="fc" id="L24">        List&lt;ForecastEntity&gt; result = forecastService.getForecasts();</span>
 
-<span class="nc bnc" id="L35" title="All 2 branches missed.">        if (!forecastEntityData.isEmpty()) {</span>
-<span class="nc" id="L36">            return new ResponseEntity&lt;&gt;(forecastEntityData, HttpStatus.OK);</span>
+<span class="fc bfc" id="L26" title="All 2 branches covered.">        if (!result.isEmpty()) {</span>
+<span class="fc" id="L27">            return new ResponseEntity&lt;&gt;(result, HttpStatus.OK);</span>
+        }
+<span class="fc" id="L29">        return new ResponseEntity&lt;&gt;(HttpStatus.NOT_FOUND);</span>
+    }
+    @GetMapping(&quot;/municipality/{name}&quot;)
+    public ResponseEntity&lt;List&lt;ForecastEntity&gt;&gt; getForecastsByMunicipality(@PathVariable String name) {
+<span class="fc" id="L33">        List&lt;ForecastEntity&gt; result = this.forecastService.getForecastsByMunicipality(name);</span>
+
+<span class="pc bpc" id="L35" title="1 of 2 branches missed.">        if (!result.isEmpty()) {</span>
+<span class="fc" id="L36">            return new ResponseEntity&lt;&gt;(result, HttpStatus.OK);</span>
         }
 <span class="nc" id="L38">        return new ResponseEntity&lt;&gt;(HttpStatus.NOT_FOUND);</span>
     }
-
     @PostMapping(path = &quot;/add&quot;, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity&lt;ForecastEntity&gt; addForecast(@Valid @RequestBody ForecastEntity forecastEntity) {
-<span class="nc" id="L43">        MunicipalityEntity municipality = this.municipalityRepository.findByName(forecastEntity.getMunicipality());</span>
-<span class="nc bnc" id="L44" title="All 2 branches missed.">        if (municipality == null) {</span>
-<span class="nc" id="L45">            municipalityRepository.save(new MunicipalityEntity(forecastEntity.getMunicipality()));</span>
+<span class="fc" id="L42">        ForecastEntity result = this.forecastService.addForecast(forecastEntity);</span>
+<span class="fc bfc" id="L43" title="All 2 branches covered.">        if (result != null) {</span>
+<span class="fc" id="L44">            return new ResponseEntity&lt;&gt;(result, HttpStatus.OK);</span>
         }
-        try {
-<span class="nc" id="L48">            forecastRepository.save(forecastEntity);</span>
-<span class="nc" id="L49">            return new ResponseEntity&lt;&gt;(forecastEntity, HttpStatus.OK);</span>
-<span class="nc" id="L50">        }catch(Exception e){</span>
-<span class="nc" id="L51">            return new ResponseEntity&lt;&gt;(HttpStatus.BAD_REQUEST);</span>
-        }
+<span class="fc" id="L46">        return new ResponseEntity&lt;&gt;(HttpStatus.BAD_REQUEST);</span>
     }
-
     @DeleteMapping(&quot;/delete/{id}&quot;)
-    public ResponseEntity&lt;Void&gt; removeForecast(@PathVariable Long id) {
-<span class="nc" id="L57">        this.forecastRepository.deleteById(id);</span>
-<span class="nc" id="L58">        return ResponseEntity.ok().build();</span>
-    }
-
-    @GetMapping(&quot;/{name}&quot;)
-    public ResponseEntity&lt;List&lt;ForecastEntity&gt;&gt; getByName(@PathVariable String name) {
-<span class="nc" id="L63">        List&lt;ForecastEntity&gt; forecastEntityData = forecastRepository.findByMunicipality(name);</span>
-
-<span class="nc bnc" id="L65" title="All 2 branches missed.">        if (!forecastEntityData.isEmpty()) {</span>
-<span class="nc" id="L66">            return new ResponseEntity&lt;&gt;(forecastEntityData, HttpStatus.OK);</span>
+    public ResponseEntity&lt;String&gt; deleteById(@PathVariable Long id) {
+<span class="nc" id="L50">        ForecastEntity forecastEntity = this.forecastService.getForecastById(id);</span>
+<span class="nc bnc" id="L51" title="All 2 branches missed.">        if (forecastEntity != null) {</span>
+<span class="nc" id="L52">            this.forecastService.deleteById(id);</span>
+<span class="nc" id="L53">            return new ResponseEntity&lt;&gt;(String.format(&quot;Forecast %d has been deleted successfully&quot;, id), HttpStatus.OK);</span>
         }
-<span class="nc" id="L68">        return new ResponseEntity&lt;&gt;(HttpStatus.NOT_FOUND);</span>
+
+<span class="nc" id="L56">        return new ResponseEntity&lt;&gt;(String.format(&quot;No forecast found with ID %d&quot;, id), HttpStatus.BAD_REQUEST);</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

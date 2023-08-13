@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { SharedService } from 'src/app/core/shared/services/shared.service';
 import { Forecast } from 'src/app/core/models/forecast';
+import { SharedService } from 'src/app/core/shared/services/shared.service';
 import { SaveButtonService } from '../../services/save-button.service';
 
 @Component({
@@ -11,7 +11,7 @@ import { SaveButtonService } from '../../services/save-button.service';
 export class SaveButtonComponent implements OnInit {
   forecast: any;
   forecasts: Forecast[] = [];
-  isButtonDisabled: boolean = true;
+  isButtonDisabled: boolean = false;
 
   constructor(private saveButtonService: SaveButtonService, private sharedService: SharedService) {}
 
@@ -19,6 +19,7 @@ export class SaveButtonComponent implements OnInit {
     this.sharedService.forecasDTO$.subscribe( {
       next: (response) => {
         this.forecast = response;
+        this.isButtonDisabled = false;
       },
       error: (error) => { console.log(error); }
     })
@@ -31,7 +32,8 @@ export class SaveButtonComponent implements OnInit {
     if (this.forecast) {
       this.saveButtonService.addForecast(this.forecast).subscribe( {
           next: (response) => {
-            console.log('El post ha sido exitoso' + response);
+            this.isButtonDisabled = true;
+            console.log('El post ha sido exitoso');
           },
           error: (error) => {
             console.log(error)
@@ -39,17 +41,5 @@ export class SaveButtonComponent implements OnInit {
         }
       );
     }
-  }
-  
-  getAllForecast(){
-    this.saveButtonService.getAllForecast().subscribe({
-      next: (response) => {
-        this.forecasts = response;
-        console.log(response);
-      },
-      error: (error) => {
-        console.log(error);
-      }
-    });
   }
 }

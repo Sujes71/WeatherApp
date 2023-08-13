@@ -1,7 +1,6 @@
 package com.springbootapp.weatherapp.enums;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
 
 @AllArgsConstructor
 public enum TemperatureEnum {

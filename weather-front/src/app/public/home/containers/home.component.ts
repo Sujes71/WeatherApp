@@ -15,5 +15,16 @@ export class HomeComponent implements OnInit {
 
     }
 
+    _setDataSource(indexNumber:number) {
+      setTimeout(() => {
+        switch (indexNumber) {
+          case 0:
+            break;
+          case 1:
+              this.sharedService.setrReadyIndex(true);
+            break;
+        }
+      });
+    }
   
 }

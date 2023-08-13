@@ -1,3 +1,4 @@
 com\springbootapp\weatherapp\it\step_definitions\CucumberDefinitions.class
 com\springbootapp\weatherapp\it\runners\CucumberIT.class
 com\springbootapp\weatherapp\ut\WeatherAppJunitTest.class
+com\springbootapp\weatherapp\db\WeatherAppDbJunitTest.class

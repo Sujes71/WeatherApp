@@ -1,4 +1,4 @@
-name: Build and Test Java Spring Boot Application
+name: Spring Boot CI
 
 on:
   push:

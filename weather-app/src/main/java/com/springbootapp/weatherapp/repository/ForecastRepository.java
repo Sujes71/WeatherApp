@@ -1,7 +1,6 @@
 package com.springbootapp.weatherapp.repository;
 
 import com.springbootapp.weatherapp.model.entity.ForecastEntity;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Profile;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

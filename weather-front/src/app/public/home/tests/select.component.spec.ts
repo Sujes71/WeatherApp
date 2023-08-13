@@ -8,12 +8,11 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Observable, of, throwError } from 'rxjs';
+import { Forecast } from "src/app/core/models/forecast";
 import { Temperature } from 'src/app/core/models/temperature';
+import { SharedService } from "src/app/core/shared/services/shared.service";
 import { SelectComponent } from "../components/select/select.component";
 import { SelectService } from "../services/select.service";
-import { SharedService } from "src/app/core/shared/services/shared.service";
-import { Forecast } from "src/app/core/models/forecast";
-import { response } from "express";
 
 const dummyTemperature = {
     "avg": 68.0,

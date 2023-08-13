@@ -1,4 +1,12 @@
-@import "~bootstrap/dist/css/bootstrap.css";
+
+$primary:#673AB7;
+$info:#400386;
+$theme-colors: (
+  "primary":    $primary,
+  "info":       $info,
+);
+
+@import "../node_modules/bootstrap/scss/bootstrap";
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
