@@ -1,7 +1,7 @@
 package com.springbootapp.weatherapp.controller.query;
 
+import com.springbootapp.weatherapp.model.collection.ForecastDocument;
 import com.springbootapp.weatherapp.model.dto.ElementDTO;
-import com.springbootapp.weatherapp.model.entity.ForecastEntity;
 import com.springbootapp.weatherapp.service.ForecastService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -27,8 +26,8 @@ public class ForecastController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
     @GetMapping("/municipality/{name}")
-    public ResponseEntity<List<ForecastEntity>> getForecastsByMunicipality(@PathVariable String name) {
-        List<ForecastEntity> result = this.forecastService.getForecastsByMunicipality(name);
+    public ResponseEntity<List<ForecastDocument>> getForecastsByMunicipality(@PathVariable String name) {
+        List<ForecastDocument> result = this.forecastService.getForecastsByMunicipality(name);
 
         return new ResponseEntity<>(result, HttpStatus.OK);
     }

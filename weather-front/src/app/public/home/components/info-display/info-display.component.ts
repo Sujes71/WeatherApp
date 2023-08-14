@@ -20,23 +20,19 @@ export class InfoDisplayComponent implements OnInit {
         this.sharedService.forecastToDisplay$.subscribe( {
           next: (response) => {
             this.forecast = response;
-            
-            this.asign();
+            this.asign(this.forecast);
           }
         });
-        this.sharedService.showedTemp$.subscribe( {
-          next: (response) => {
-            this.showedTemp = response;
-          }
-        })
     }
-    asign() {
-      if (this.forecast) { // Verificar si forecast tiene un valor antes de acceder a sus propiedades
-        const date = new Date(this.forecast.date);
+    asign(forecast: any) {
+      if (forecast) {
+        const date = new Date(forecast.date);
         const formattedDate = "EEEE, d 'de' MMMM 'de' y";
         this.formattedDate = format(date, formattedDate, { locale: es });
-        if(this.showedTemp === '')
+        if(forecast.temperature.unit == 'G_CEL')
           this.showedTemp = this.forecast.temperature.avg + 'ºC';
+        else
+          this.showedTemp = this.forecast.temperature.avg + 'ºF';
       }
     }
 

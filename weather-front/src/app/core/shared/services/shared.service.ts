@@ -20,9 +20,6 @@ export class SharedService {
   private forecastToDisplay = new BehaviorSubject<any>(null);
   forecastToDisplay$ = this.forecastToDisplay.asObservable();
 
-  private showedTemp = new BehaviorSubject<string>('');
-  showedTemp$ = this.showedTemp.asObservable();
-
   private readyIndex = new BehaviorSubject<boolean>(false);
   readyIndex$ = this.readyIndex.asObservable();
 
@@ -37,10 +34,6 @@ export class SharedService {
 
   setForecastDTO(forecastDTO: any) {
     this.forecastDTO.next(forecastDTO);
-  }
-
-  setShowedTemp(temp: string) {
-    this.showedTemp.next(temp);
   }
 
   setrReadyIndex(readyIndex: boolean) {

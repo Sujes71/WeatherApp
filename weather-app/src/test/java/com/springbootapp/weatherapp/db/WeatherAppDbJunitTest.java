@@ -3,6 +3,7 @@ package com.springbootapp.weatherapp.db;
 import com.springbootapp.weatherapp.controller.command.ForecastCommandController;
 import com.springbootapp.weatherapp.controller.query.ForecastController;
 import com.springbootapp.weatherapp.model.ApiResponse;
+import com.springbootapp.weatherapp.model.collection.ForecastDocument;
 import com.springbootapp.weatherapp.model.dto.ElementDTO;
 import com.springbootapp.weatherapp.model.entity.ForecastEntity;
 import com.springbootapp.weatherapp.model.entity.ProbPrecipitationEntity;
@@ -13,7 +14,6 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -49,11 +49,11 @@ public class WeatherAppDbJunitTest {
     }
     @Test
     void testGetForecastsByName() {
-        List<ForecastEntity> forecastEntities = new ArrayList<>();
-        forecastEntities.add(new ForecastEntity());
-        when(forecastService.getForecastsByMunicipality("Marbella")).thenReturn(forecastEntities);
+        List<ForecastDocument> forecastDocuments = new ArrayList<>();
+        forecastDocuments.add(new ForecastDocument());
+        when(forecastService.getForecastsByMunicipality("Marbella")).thenReturn(forecastDocuments);
 
-        ResponseEntity<List<ForecastEntity>> response = this.forecastQController.getForecastsByMunicipality("Marbella");
+        ResponseEntity<List<ForecastDocument>> response = this.forecastQController.getForecastsByMunicipality("Marbella");
         assertEquals(HttpStatus.OK, response.getStatusCode());
     }
     @Test
@@ -77,16 +77,11 @@ public class WeatherAppDbJunitTest {
         forecastEntities.add(forecastEntity);
 
         when(forecastService.addForecast(forecastEntity)).thenReturn(true);
-        when(forecastService.getForecastsByMunicipality("Marbella")).thenReturn(forecastEntities);
 
         ResponseEntity<ApiResponse> response1 = this.forecastCController.addForecast(forecastEntity);
-        ResponseEntity<List<ForecastEntity>> response2 = this.forecastQController.getForecastsByMunicipality("Marbella");
         assertEquals(HttpStatus.OK, response1.getStatusCode());
-        assertEquals(Objects.requireNonNull(response2.getBody()).size(), 1);
 
         forecastEntities.add(forecastEntity);
-        ResponseEntity<List<ForecastEntity>> response4 = this.forecastQController.getForecastsByMunicipality("Marbella");
-        assertEquals(Objects.requireNonNull(response4.getBody()).size(), 2);
 
         when(forecastService.addForecast(new ForecastEntity())).thenReturn(true);
         ResponseEntity<ApiResponse> response5 = this.forecastCController.addForecast(new ForecastEntity());

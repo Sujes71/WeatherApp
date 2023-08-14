@@ -41,6 +41,14 @@ services:
     volumes:
       - postgres-data:/var/lib/postgresql/data
 
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb-data:/data/db
+
   weather-back:
     build:
       context: ./weather-app
@@ -50,6 +58,7 @@ services:
     depends_on:
       - postgresql
       - broker
+      - mongodb
 
   weather-front:
     build:
@@ -62,3 +71,4 @@ services:
 
 volumes:
   postgres-data:
+  mongodb-data:

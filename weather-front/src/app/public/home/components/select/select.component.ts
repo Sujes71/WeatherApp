@@ -12,7 +12,6 @@ export class SelectComponent implements OnInit {
     
     @Input() forecast: any;
     unitSelected: string = '';
-    showedTemp = '';
 
     constructor(private selectService: SelectService, private sharedService: SharedService) {}
     
@@ -34,9 +33,6 @@ export class SelectComponent implements OnInit {
             this.forecast.temperature.unit = response.unit; 
             this.forecast.temperature.avg = response.avg;
             this.unitSelected = response.unit;
-            this.showedTemp = this.unitSelected === 'G_CEL' ? 
-                        this.forecast.temperature.avg + 'ºC' : this.showedTemp = this.forecast.temperature.avg + 'ºF';
-            this.sharedService.setShowedTemp(this.showedTemp);
             this.sharedService.setForecastToDisplay(this.forecast);
           },
           error: (error) => {

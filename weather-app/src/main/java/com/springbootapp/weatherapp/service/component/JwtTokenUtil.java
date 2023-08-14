@@ -1,6 +1,5 @@
 package com.springbootapp.weatherapp.service.component;
 
-import com.springbootapp.weatherapp.service.kafka.KafkaConsumerService;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.Data;

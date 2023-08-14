@@ -10,7 +10,7 @@ import java.util.Date;
 @Builder
 @AllArgsConstructor
 public class ElementDTO {
-    Long id;
+    String id;
     String municipality;
     Date date;
     String unit;

@@ -1,15 +1,13 @@
 package com.springbootapp.weatherapp.controller.command;
 
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.springbootapp.weatherapp.model.ApiResponse;
+import com.springbootapp.weatherapp.model.collection.ForecastDocument;
 import com.springbootapp.weatherapp.model.entity.ForecastEntity;
 import com.springbootapp.weatherapp.service.ForecastService;
-import com.springbootapp.weatherapp.service.kafka.KafkaProducerService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,8 +28,8 @@ public class ForecastCommandController {
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteById(@PathVariable Long id) {
-        ForecastEntity forecastEntity = this.forecastService.getForecastById(id);
-        if (forecastEntity != null) {
+        ForecastDocument forecastDocument = this.forecastService.getForecastById(id);
+        if (forecastDocument != null) {
             this.forecastService.deleteById(id);
             return new ResponseEntity<>(String.format("Forecast %d has been deleted successfully", id), HttpStatus.OK);
         }
